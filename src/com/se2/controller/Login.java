@@ -45,11 +45,14 @@ public class Login extends HttpServlet {
 
         try {
             if (loginDao.validate(account)) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("todo/todo-list.jsp");
+            	request.getSession().setAttribute("islogin", true);
+            	request.getSession().setAttribute("username", account.getUsername());
+                RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
                 dispatcher.forward(request, response);
             } else {
                 HttpSession session = request.getSession();
-                 session.setAttribute("user", username);
+                 session.setAttribute("username", username);
+                 session.setAttribute("islogin", false);
                  response.sendRedirect("views/login.jsp");
             }
         } catch (ClassNotFoundException e) {

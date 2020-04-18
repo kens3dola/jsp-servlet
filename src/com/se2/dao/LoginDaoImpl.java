@@ -15,12 +15,12 @@ public class LoginDaoImpl implements LoginDao {
     public boolean validate(Account account) throws ClassNotFoundException {
         boolean status = false;
 
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.cj.jdbc.Driver");
 
         try (Connection connection = JdbcConnection.getConnection();
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection
-            .prepareStatement("select * from users where username = ? and password = ? ")) {
+            .prepareStatement("select * from account where username = ? and password = ? ")) {
             preparedStatement.setString(1, account.getUsername());
             preparedStatement.setString(2, account.getPassword());
 

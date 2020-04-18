@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2020 at 08:46 AM
+-- Generation Time: Apr 18, 2020 at 10:45 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -18,12 +18,29 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
-CREATE DATABASE `se2`;
-USE `se2`;
-
 --
 -- Database: `se2`
 --
+CREATE DATABASE `se2`;
+USE `se2`;
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `account`
+--
+
+CREATE TABLE `account` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `account`
+--
+
+INSERT INTO `account` (`id`, `username`, `password`) VALUES
+(1, 'admin', 'admin');
 
 -- --------------------------------------------------------
 
@@ -39,6 +56,13 @@ CREATE TABLE `city` (
   `deaths` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `city`
+--
+
+INSERT INTO `city` (`id`, `name`, `confirmed`, `recovered`, `deaths`) VALUES
+(1, 'Hà Nội', 116, 82, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -52,6 +76,13 @@ CREATE TABLE `continent` (
   `recovered` int(11) NOT NULL,
   `deaths` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `continent`
+--
+
+INSERT INTO `continent` (`id`, `name`, `confirmed`, `recovered`, `deaths`) VALUES
+(1, 'Asia', 358921, 170488, 14079);
 
 -- --------------------------------------------------------
 
@@ -68,6 +99,13 @@ CREATE TABLE `country` (
   `continent_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `country`
+--
+
+INSERT INTO `country` (`id`, `name`, `confirmed`, `recovered`, `deaths`, `continent_id`) VALUES
+(1, 'China', 83597, 77029, 4632, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -82,8 +120,21 @@ CREATE TABLE `world` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `world`
+--
+
+INSERT INTO `world` (`id`, `comfirmed`, `recovered`, `deaths`) VALUES
+(1, 2240191, 568343, 153822);
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `account`
+--
+ALTER TABLE `account`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `city`
@@ -115,22 +166,28 @@ ALTER TABLE `world`
 --
 
 --
+-- AUTO_INCREMENT for table `account`
+--
+ALTER TABLE `account`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `city`
 --
 ALTER TABLE `city`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `continent`
 --
 ALTER TABLE `continent`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `country`
 --
 ALTER TABLE `country`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -146,8 +203,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-INSERT INTO `world` (`id`, `comfirmed`, `recovered`, `deaths`) VALUES ('1', '2240191', '568343', '153822');
-INSERT INTO `continent` (`id`, `name`, `confirmed`, `recovered`, `deaths`) VALUES ('1', 'Asia', '358921', '170488', '14079');
-INSERT INTO `country` (`id`, `name`, `confirmed`, `recovered`, `deaths`, `continent_id`) VALUES ('1', 'China', '83597', '77029', '4632', '1');
-INSERT INTO `city` (`id`, `name`, `confirmed`, `recovered`, `deaths`) VALUES ('1', 'Hà Nội', '116', '82', '0');

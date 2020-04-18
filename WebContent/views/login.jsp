@@ -15,7 +15,7 @@
 			<div class="form-group">
 				<label for="uname">User Name:</label> <input type="text"
 					class="form-control" id="username" placeholder="User Name"
-					name="username" required>
+					name="username" value="<%=session.getAttribute("username") %>" required>
 			</div>
 
 			<div class="form-group">

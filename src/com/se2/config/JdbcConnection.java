@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public class JdbcConnection {
 
-	private static String jdbcURL = "jdbc:mysql://localhost:3306/se2";
+	private static String jdbcURL = "jdbc:mysql://localhost:3306/se2?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	private static String jdbcUsername = "root";
 	private static String jdbcPassword = "";
 
