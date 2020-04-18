@@ -8,7 +8,7 @@
 }
 </style>
 
-<footer class="footer font-small black">=
+<footer class="footer font-small black">
 	<div class="footer-copyright text-center py-3" style="color: white">Software
 		Engineering 2</div>
 </footer>
