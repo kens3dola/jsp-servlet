@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.se2.dao.ContinentDaoImpl;
-import com.se2.daoImpl.ContinentDao;
+import com.se2.dao.ContinentDao;
+import com.se2.daoImpl.ContinentDaoImpl;
 import com.se2.model.ContinentModel;
 
 /**

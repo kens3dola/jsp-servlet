@@ -1,4 +1,4 @@
-package com.se2.daoImpl;
+package com.se2.dao;
 
 import com.se2.model.Account;
 

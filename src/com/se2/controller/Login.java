@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.se2.dao.LoginDaoImpl;
+import com.se2.daoImpl.LoginDaoImpl;
 import com.se2.model.Account;
 
 
