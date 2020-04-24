@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Index</title>
+
 </head>
 <body>
 	<jsp:include page="./common/header.jsp"></jsp:include>

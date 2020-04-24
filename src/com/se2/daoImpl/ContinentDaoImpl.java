@@ -9,12 +9,12 @@ import java.util.List;
 
 import com.se2.config.JdbcConnection;
 import com.se2.dao.ContinentDao;
-import com.se2.model.ContinentModel;
+import com.se2.model.Continent;
 
 public class ContinentDaoImpl implements ContinentDao{
 	
 	@Override
-	public void insertContinent(ContinentModel continent) throws SQLException, ClassNotFoundException {
+	public void insertContinent(Continent continent) throws SQLException, ClassNotFoundException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		try(Connection connection = JdbcConnection.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement("insert into continent (name,confirmed,recovered,deaths) values (?,?,?,?);")){
@@ -30,7 +30,7 @@ public class ContinentDaoImpl implements ContinentDao{
 	}
 
 	@Override
-	public boolean updateContinent(ContinentModel continent) throws SQLException, ClassNotFoundException {
+	public boolean updateContinent(Continent continent) throws SQLException, ClassNotFoundException {
 		boolean rowUpdated;
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		try (Connection connection = JdbcConnection.getConnection();
@@ -60,15 +60,14 @@ public class ContinentDaoImpl implements ContinentDao{
 	}
 
 	@Override
-	public List<ContinentModel> listAllContinent() throws ClassNotFoundException {
+	public List<Continent> listAllContinent() throws ClassNotFoundException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		List<ContinentModel> continent = new ArrayList<>();
+		List<Continent> continent = new ArrayList<>();
 		// Step 1: Establishing a Connection
 		try (Connection connection = JdbcConnection.getConnection();
 
 				// Step 2:Create a statement using connection object
 			PreparedStatement preparedStatement = connection.prepareStatement("select * from continent ;");) {
-			System.out.println(preparedStatement);
 			// Step 3: Execute the query or update query
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -79,7 +78,7 @@ public class ContinentDaoImpl implements ContinentDao{
 				int confirmed = rs.getInt("confirmed");
 				int recovered = rs.getInt("recovered");
 				int deaths = rs.getInt("deaths");
-				continent.add(new ContinentModel(id,name,confirmed,recovered,deaths));
+				continent.add(new Continent(id,name,confirmed,recovered,deaths));
 			}
 		} catch (SQLException e) {
 			JdbcConnection.printSQLException(e);
@@ -89,14 +88,13 @@ public class ContinentDaoImpl implements ContinentDao{
 	}
 
 	@Override
-	public ContinentModel selectContinent(int id) {
-		ContinentModel continent = null;
+	public Continent selectContinent(int id) {
+		Continent continent = null;
 		// Step 1: Establishing a Connection
 		try (Connection connection = JdbcConnection.getConnection();
 				// Step 2:Create a statement using connection object
 				PreparedStatement preparedStatement = connection.prepareStatement("select id,name,confirmed,recovered,deaths from continent where id= ?");) {
 			preparedStatement.setInt(1, id);
-			System.out.println(preparedStatement);
 			// Step 3: Execute the query or update query
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -107,7 +105,7 @@ public class ContinentDaoImpl implements ContinentDao{
 				int confirmed = rs.getInt("confirmed");
 				int recovered = rs.getInt("recovered");
 				int deaths = rs.getInt("deaths");
-				continent = new ContinentModel(id,name,confirmed,recovered,deaths);
+				continent = new Continent(id,name,confirmed,recovered,deaths);
 			}
 		} catch (SQLException e) {
 			JdbcConnection.printSQLException(e);

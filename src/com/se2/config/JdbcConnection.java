@@ -36,7 +36,6 @@ public class JdbcConnection {
 				System.err.println("Message: " + e.getMessage());
 				Throwable t = ex.getCause();
 				while (t != null) {
-					System.out.println("Cause: " + t);
 					t = t.getCause();
 				}
 			}

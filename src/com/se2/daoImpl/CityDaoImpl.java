@@ -24,7 +24,6 @@ public class CityDaoImpl implements CityDao {
 		List<City> citys = new ArrayList<>();
 		try(Connection conn = JdbcConnection.getConnection(); 
 			PreparedStatement prep = conn.prepareStatement(SELECT_ALL_CITY)){
-			System.out.println(prep);
 			ResultSet rs = prep.executeQuery();
 			while(rs.next()) {
 				int cityid = rs.getInt("id");
@@ -46,7 +45,6 @@ public class CityDaoImpl implements CityDao {
 		try(Connection conn = JdbcConnection.getConnection(); 
 				PreparedStatement prep = conn.prepareStatement(SELECT_CITY_BY_ID)){
 				prep.setInt(1, id);
-				System.out.println(prep);
 				ResultSet rs = prep.executeQuery();
 				while(rs.next()) {
 					int userid = rs.getInt("id");
@@ -64,7 +62,6 @@ public class CityDaoImpl implements CityDao {
 
 	@Override
 	public void insertCity(City city) throws SQLException {
-		System.out.println(INSERT_CITY);
 		try(
 			Connection conn =JdbcConnection.getConnection(); 
 			PreparedStatement prep = conn.prepareStatement(INSERT_CITY)){
@@ -72,7 +69,6 @@ public class CityDaoImpl implements CityDao {
 			prep.setInt(2, city.getConfirmed());
 			prep.setInt(3, city.getRecovered());
 			prep.setInt(4, city.getDeaths());
-			System.out.println(prep);
 			prep.executeUpdate();
 		}catch(SQLException e) {
 			JdbcConnection.printSQLException(e);

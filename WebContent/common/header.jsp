@@ -24,10 +24,10 @@
 		<div class="bg-light border-right" id="sidebar-wrapper">
 			<div class="sidebar-heading">Statistics managing</div>
 			<div class="list-group list-group-flush">
-				<a href="#" class="list-group-item list-group-item-action bg-light">World</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Continent</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Country</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">City</a>
+				<a href="<%=request.getContextPath()%>/world" class="list-group-item list-group-item-action bg-light">World</a>
+				<a href="<%=request.getContextPath()%>/continent" class="list-group-item list-group-item-action bg-light">Continent</a>
+				<a href="<%=request.getContextPath()%>/country" class="list-group-item list-group-item-action bg-light">Country</a>
+				<a href="<%=request.getContextPath()%>/city" class="list-group-item list-group-item-action bg-light">City</a>
 				<a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
 				<a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
 			</div>
