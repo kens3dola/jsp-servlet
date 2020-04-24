@@ -3,28 +3,78 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<header>
-	<nav class="navbar navbar-expand-md navbar-dark"
-		style="background-color: tomato">
-		<ul class="navbar-nav navbar-collapse justify-content-start">
-				<li><a href="<%=request.getContextPath()%>/index.jsp"
-					class="nav-link">Home</a></li>
-					</ul>
-		<ul class="navbar-nav navbar-collapse justify-content-end">
-			<%
-				boolean islogin = (session.getAttribute("islogin") == null) ? false
-						: (boolean) session.getAttribute("islogin");
-			%>
-			<c:if test="${!islogin}">
-				<li><a href="<%=request.getContextPath()%>/login"
-					class="nav-link">Login</a></li>
-			</c:if>
+<!-- Bootstrap core CSS -->
+<link href="<c:url value = "/style/vendor/bootstrap/css/bootstrap.min.css"/>"
+	rel="stylesheet">
+	
+<link
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet"
+	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+	crossorigin="anonymous">
+<%
+	boolean islogin = (session.getAttribute("islogin") == null) ? false
+			: (boolean) session.getAttribute("islogin");
+%>
+
+<!-- Custom styles for this template -->
+<link href="<c:url value = "/style/css/simple-sidebar.css"/>" rel="stylesheet">
+<div class="d-flex" id="wrapper">
+	<c:if test="${islogin}">
+		<div class="bg-light border-right" id="sidebar-wrapper">
+			<div class="sidebar-heading">Statistics managing</div>
+			<div class="list-group list-group-flush">
+				<a href="#" class="list-group-item list-group-item-action bg-light">World</a>
+				<a href="#" class="list-group-item list-group-item-action bg-light">Continent</a>
+				<a href="#" class="list-group-item list-group-item-action bg-light">Country</a>
+				<a href="#" class="list-group-item list-group-item-action bg-light">City</a>
+				<a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
+				<a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+			</div>
+		</div>
+	</c:if>
+
+	<div id="page-content-wrapper">
+
+		<nav
+			class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+
 			<c:if test="${islogin}">
-				<li><a href="<%=request.getContextPath()%>/changepassword"
-					class="nav-link">Change password</a></li>
-				<li><a href="<%=request.getContextPath()%>/logout"
-					class="nav-link">Logout</a></li>
+				<button class="btn btn-primary" id="menu-toggle">
+					<i class="fa fas fa-bars"></i>
+				</button>
 			</c:if>
-		</ul>
-	</nav>
-</header>
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+					<li class="nav-item active"><a class="nav-link"
+						href="<%=request.getContextPath()%>/index.jsp">Home <span
+							class="sr-only">(current)</span></a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Report</a></li>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> Account </a>
+						<div class="dropdown-menu dropdown-menu-right"
+							aria-labelledby="navbarDropdown">
+							<c:if test="${!islogin}">
+								<a href="<%=request.getContextPath()%>/login" class="nav-link">Login</a>
+							</c:if>
+							<c:if test="${islogin}">
+								<a href="<%=request.getContextPath()%>/changepassword"
+									class="nav-link">Change password</a>
+								<a href="<%=request.getContextPath()%>/logout" class="nav-link">Logout</a>
+							</c:if>
+						</div></li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="container-fluid">

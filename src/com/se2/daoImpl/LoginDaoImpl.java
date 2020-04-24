@@ -1,4 +1,4 @@
-package com.se2.dao;
+package com.se2.daoImpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.se2.config.JdbcConnection;
-import com.se2.daoImpl.LoginDao;
+import com.se2.dao.LoginDao;
 import com.se2.model.Account;
 
 

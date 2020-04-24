@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.se2.dao.LoginDaoImpl;
+import com.se2.daoImpl.LoginDaoImpl;
 import com.se2.model.Account;
 
 
@@ -39,10 +39,7 @@ public class Login extends HttpServlet {
     private void authenticate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        Account account = new Account();
-        account.setUsername(username);
-        account.setPassword(password);
-
+        Account account = new Account(password, password);
         try {
             if (loginDao.validate(account)) {
             	request.getSession().setAttribute("islogin", true);

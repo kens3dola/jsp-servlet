@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Index</title>
+<title>Login</title>
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"></jsp:include>
@@ -15,7 +16,7 @@
 			<div class="form-group">
 				<label for="uname">User Name:</label> <input type="text"
 					class="form-control" id="username" placeholder="User Name"
-					name="username" value="<%=session.getAttribute("username") %>" required>
+					name="username" required>
 			</div>
 
 			<div class="form-group">

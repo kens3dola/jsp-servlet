@@ -4,7 +4,14 @@ public class Account {
 	private String username;
 	private String password;
 	
-    public String getUsername() {
+	
+    public Account(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+
+	public String getUsername() {
         return username;
     }
 

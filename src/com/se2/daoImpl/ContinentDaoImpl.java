@@ -1,4 +1,4 @@
-package com.se2.dao;
+package com.se2.daoImpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.se2.config.JdbcConnection;
-import com.se2.daoImpl.ContinentDao;
+import com.se2.dao.ContinentDao;
 import com.se2.model.ContinentModel;
 
 public class ContinentDaoImpl implements ContinentDao{
