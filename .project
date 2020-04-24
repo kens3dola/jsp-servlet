@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>jsp-servlet</name>
+	<name>jsp-servlet2</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -32,7 +32,13 @@
 		<link>
 			<name>WebContent/WEB-INF/lib/servlet-api-2.5.jar</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Downloads/servlet-api-2.5.jar</locationURI>
+			<location>C:/Users/Reds/eclipse-workspace/corona/WebContent/WEB-INF/lib/servlet-api-2.5.jar</location>
 		</link>
 	</linkedResources>
+	<variableList>
+		<variable>
+			<name>copy_PARENT</name>
+			<value>$%7BPARENT-1-PROJECT_LOC%7D</value>
+		</variable>
+	</variableList>
 </projectDescription>

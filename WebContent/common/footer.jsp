@@ -1,14 +1,16 @@
-<style>
-.footer {
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	height: 40px;
-	background-color: tomato;
-}
-</style>
+</div>
+</div>
+<!-- /#page-content-wrapper -->
 
-<footer class="footer font-small black">
-	<div class="footer-copyright text-center py-3" style="color: white">Software
-		Engineering 2</div>
-</footer>
+</div>
+<!-- /#wrapper -->
+<script src="style/vendor/jquery/jquery.min.js"></script>
+<script src="style/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Menu Toggle Script -->
+<script>
+	$("#menu-toggle").click(function(e) {
+		e.preventDefault();
+		$("#wrapper").toggleClass("toggled");
+	});
+</script>

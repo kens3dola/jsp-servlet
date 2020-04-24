@@ -39,10 +39,7 @@ public class Login extends HttpServlet {
     private void authenticate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        Account account = new Account();
-        account.setUsername(username);
-        account.setPassword(password);
-
+        Account account = new Account(password, password);
         try {
             if (loginDao.validate(account)) {
             	request.getSession().setAttribute("islogin", true);

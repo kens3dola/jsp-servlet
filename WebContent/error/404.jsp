@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Index</title>
-
+<title>Not found</title>
 </head>
 <body>
-	<jsp:include page="./common/header.jsp"></jsp:include>
-	<h1>index page.</h1>
-	<jsp:include page="./common/footer.jsp"></jsp:include>
+	<div><h2>Requested page could not be found.</h2></div>
+	<div>
+		<a href="javascript:history.go(-1);">Go back</a>
+	</div>
 </body>
 </html>

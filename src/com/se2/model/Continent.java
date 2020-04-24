@@ -1,12 +1,12 @@
 package com.se2.model;
 
-public class ContinentModel {
+public class Continent {
 	private int id;
 	private String name;
 	private int confirmed;
 	private int recovered;
 	private int deaths;
-	public ContinentModel(int id, String name, int confirmed, int recovered, int deaths) {
+	public Continent(int id, String name, int confirmed, int recovered, int deaths) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -14,7 +14,7 @@ public class ContinentModel {
 		this.recovered = recovered;
 		this.deaths = deaths;
 	}
-	public ContinentModel(String name, int confirmed, int recovered, int deaths) {
+	public Continent(String name, int confirmed, int recovered, int deaths) {
 		super();
 		this.name = name;
 		this.confirmed = confirmed;
