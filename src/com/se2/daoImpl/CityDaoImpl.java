@@ -24,6 +24,7 @@ public class CityDaoImpl implements CityDao {
 		List<City> citys = new ArrayList<>();
 		try(Connection conn = JdbcConnection.getConnection(); 
 			PreparedStatement prep = conn.prepareStatement(SELECT_ALL_CITY)){
+
 			ResultSet rs = prep.executeQuery();
 			while(rs.next()) {
 				int cityid = rs.getInt("id");

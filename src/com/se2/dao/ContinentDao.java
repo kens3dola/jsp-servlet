@@ -11,5 +11,4 @@ public interface ContinentDao {
 	boolean deleteContinent(int id) throws SQLException,ClassNotFoundException ;
 	List<Continent> listAllContinent() throws ClassNotFoundException  ;
 	Continent selectContinent(int id);
-	
 }
