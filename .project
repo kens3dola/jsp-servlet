@@ -32,7 +32,7 @@
 		<link>
 			<name>WebContent/WEB-INF/lib/servlet-api-2.5.jar</name>
 			<type>1</type>
-			<location>C:/Users/Reds/eclipse-workspace/jsp-servlet/WebContent/WEB-INF/lib/servlet-api-2.5.jar</location>
+			<location>C:/Users/Reds/eclipse-workspace/corona/WebContent/WEB-INF/lib/servlet-api-2.5.jar</location>
 		</link>
 	</linkedResources>
 	<variableList>
