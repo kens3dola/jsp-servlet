@@ -12,17 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.se2.dao.CityDao;
-import com.se2.daoImpl.CityDaoImpl;
-import com.se2.model.City;
 
 
-@WebServlet("/city/*")
-public class CityController extends HttpServlet {
+@WebServlet("/")
+public class City extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CityDao citydao;
 	
 	public void init() {
-		citydao = new CityDaoImpl();
+		
 	}
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) 
 		throws ServletException, IOException{
@@ -105,5 +103,6 @@ public class CityController extends HttpServlet {
 			throws SQLException, IOException, ServletException{
 		RequestDispatcher dis = req.getRequestDispatcher("views/city/showNewForm.jsp");
 		dis.forward(req, res);
+		
 	}
 }
