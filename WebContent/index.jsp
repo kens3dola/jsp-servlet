@@ -1,13 +1,12 @@
-<<<<<<< HEAD
 <%@page
 	import="com.se2.model.FeedMessage,com.se2.model.Feed,java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-=======
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
->>>>>>> parent of dbced06... News
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +16,6 @@
 </head>
 <body>
 	<jsp:include page="./common/header.jsp"></jsp:include>
-<<<<<<< HEAD
 	<div class="row" style="height:100%;overflow:auto">
 		<div class="col-md-2">
 			<div class="card">
@@ -70,9 +68,6 @@
 			</c:if>
 		</div>
 	</div>
-=======
-	<h1>index page.</h1>
->>>>>>> parent of dbced06... News
 	<jsp:include page="./common/footer.jsp"></jsp:include>
 </body>
 </html>
