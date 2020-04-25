@@ -11,17 +11,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.se2.dao.CountryDAO;
+import com.se2.dao.CountryDao;
 import com.se2.daoImpl.CityDaoImpl;
+import com.se2.daoImpl.CountryDaoImpl;
+import com.se2.model.Country;
 
 
 @WebServlet("/")
-public class Country extends HttpServlet {
+public class CountryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private CountryDAO countrydao;
+	private CountryDao countrydao;
 	
 	public void init() {
-		citydao = new CityDaoImpl();
+		countrydao = new CountryDaoImpl();
 	}
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) 
 		throws ServletException, IOException{
@@ -78,8 +80,9 @@ public class Country extends HttpServlet {
 		int confirmed = Integer.parseInt(req.getParameter("confirmed"));
 		int recovered = Integer.parseInt(req.getParameter("recovered"));
 		int deaths = Integer.parseInt(req.getParameter("deaths"));
+		int continent_id = Integer.parseInt(req.getParameter("continent_id"));
 		
-		Country updateCountry = new Country(id, name, confirmed, recovered, deaths, );
+		Country updateCountry = new Country(id, name, confirmed, recovered, deaths, continent_id);
 		countrydao.updateCountry(updateCountry);
 		res.sendRedirect("country/list");
 	}
@@ -95,9 +98,15 @@ public class Country extends HttpServlet {
 		int confirmed = Integer.parseInt(req.getParameter("confirmed"));
 		int recovered = Integer.parseInt(req.getParameter("recovered"));
 		int deaths = Integer.parseInt(req.getParameter("deaths"));
-		
-		Country newCountry = new Country(name, confirmed, recovered, deaths);
-		countrydao.insertCountry(newCountry);
+
+		int continent_id = Integer.parseInt(req.getParameter("continent_id"));
+		Country c = new Country();
+		c.setConfirmed(confirmed);
+		c.setDeaths(deaths);
+		c.setName(name);
+		c.setRecovered(recovered);
+		c.setContinent_id(continent_id);
+		countrydao.insertCountry(c);
 		res.sendRedirect("city/country");
 	}
 	private void showNewForm(HttpServletRequest req, HttpServletResponse res)

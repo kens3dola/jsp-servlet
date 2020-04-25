@@ -14,9 +14,17 @@ public class Country {
 		this.confirmed = confirmed;
 		this.recovered = recovered;
 		this.deaths = deaths;
-		this.continent_id = cotinent_id;
+		this.continent_id = continent_id;
 	}
 	
+	
+
+	public Country() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public int getId() {
 		return id;
 	}
