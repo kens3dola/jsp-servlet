@@ -74,6 +74,7 @@ public class FeedMessage  implements Comparable<FeedMessage> {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return 1;
 		}
 		int x = d1.compareTo(d2);
 		if(x==0)return 0;

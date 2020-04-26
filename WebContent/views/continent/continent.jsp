@@ -21,7 +21,7 @@
 			<div class="container text-left">
         <div class="container text-left">
 
-				<a href="<%=request.getContextPath()%>/newContinent" class="btn btn-success">Add
+				<a href="<%=request.getContextPath()%>/continent?action=new" class="btn btn-success">Add
 					New User</a>
 			</div>
 				
@@ -48,9 +48,9 @@
 							<td><c:out value="${continent.recovered}" /></td>
 							<td><c:out value="${continent.deaths}" /></td>
 							
-							<td><a href="editContinent?id=<c:out value='${continent.id}' />">Edit</a>
+							<td><a href="continent?action=edit&id=<c:out value='${continent.id}' />">Edit</a>
 								&nbsp;&nbsp;&nbsp;&nbsp; <a
-								href="deleteContinent?id=<c:out value='${continent.id}' />">Delete</a></td>
+								href="continent?action=delete&id=<c:out value='${continent.id}' />">Delete</a></td>
 						</tr>
 					</c:forEach>
 					<!-- } -->

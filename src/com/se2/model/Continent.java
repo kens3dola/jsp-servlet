@@ -1,6 +1,25 @@
 package com.se2.model;
 
 public class Continent {
+	public Continent() {
+		super();
+	}
+
+
+
+
+
+
+
+
+
+	public Continent(String name, int confirmed, int recovered, int deaths) {
+		super();
+		this.name = name;
+		this.confirmed = confirmed;
+		this.recovered = recovered;
+		this.deaths = deaths;
+	}
 	private int id;
 	private String name;
 	private int confirmed;
@@ -14,15 +33,14 @@ public class Continent {
 		this.recovered = recovered;
 		this.deaths = deaths;
 	}
-	public Continent(String name, int confirmed, int recovered, int deaths) {
-		super();
-		this.name = name;
-		this.confirmed = confirmed;
-		this.recovered = recovered;
-		this.deaths = deaths;
-	}
+	
 
 	
+
+	
+
+
+
 
 	public int getId() {
 		return id;

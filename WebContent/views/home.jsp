@@ -29,10 +29,14 @@
 			<div class="card">
 				<div class="card-header">Continents</div>
 				<div class="card-body">
-					<span class="badge badge-primary">Confirmed:
-						${world.confirmed }</span> <br> <span class="badge badge-success">Recovered:
-						${world.recovered }</span> <br> <span class="badge badge-danger">Deaths:
-						${world.deaths }</span>
+				<c:forEach var="continent" items="${continent}">
+				<span class="badge badge-primary">
+					Name:${continent.name }</span><br>
+					<span class="badge badge-primary">
+					Confirmed:${continent.confirmed }</span> <br> <span class="badge badge-success">Recovered:
+						${continent.recovered }</span> <br> <span class="badge badge-danger">Deaths:
+						${continent.deaths }</span> <br ><br>
+						</c:forEach>
 				</div>
 				
 			</div>

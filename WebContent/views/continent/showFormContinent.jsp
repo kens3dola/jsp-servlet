@@ -11,10 +11,10 @@
 		<div class="card">
 			<div class="card-body">
 				<c:if test="${continent != null}">
-					<form action="updateContinent" method="post">
+					<form action="continent?action=update" method="post">
 				</c:if>
 				<c:if test="${continent == null}">
-					<form action="insertContinent" method="post">
+					<form action="continent?action=insert" method="post">
 				</c:if>
 
 				<caption>

@@ -28,13 +28,6 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>WebContent/WEB-INF/lib/servlet-api-2.5.jar</name>
-			<type>1</type>
-			<location>C:/Users/Reds/eclipse-workspace/corona/WebContent/WEB-INF/lib/servlet-api-2.5.jar</location>
-		</link>
-	</linkedResources>
 	<variableList>
 		<variable>
 			<name>copy_PARENT</name>
