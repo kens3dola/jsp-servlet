@@ -32,9 +32,9 @@
 					<tr>
 					
 						<th>Name</th>
-						<th>Email</th>
-						<th>Country</th>
-						<th>Actions</th>
+						<th>Confirmed</th>
+						<th>Discovred</th>
+						<th>Deaths</th>
 						<th>Action</th>
 					</tr>
 				</thead>
