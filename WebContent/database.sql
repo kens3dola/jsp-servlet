@@ -114,7 +114,7 @@ INSERT INTO `country` (`id`, `name`, `confirmed`, `recovered`, `deaths`, `contin
 
 CREATE TABLE `world` (
   `id` int(11) NOT NULL,
-  `comfirmed` int(11) NOT NULL,
+  `confirmed` int(11) NOT NULL,
   `recovered` int(11) NOT NULL,
   `deaths` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -123,7 +123,7 @@ CREATE TABLE `world` (
 -- Dumping data for table `world`
 --
 
-INSERT INTO `world` (`id`, `comfirmed`, `recovered`, `deaths`) VALUES
+INSERT INTO `world` (`id`, `confirmed`, `recovered`, `deaths`) VALUES
 (1, 2240191, 568343, 153822);
 
 --
