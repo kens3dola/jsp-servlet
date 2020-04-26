@@ -56,8 +56,8 @@
 			</c:if>
 			<c:if test="${feed!=null }">
 					<c:forEach var="m" items="${feed }">
-						<div class="card">
-							<div class="card-header">${m.title }</div>
+						<div class="card mb-2">
+							<div class="card-header"><a href="${m.link }">${m.title } | <span class="small">${m.pubDate }</span></a></div>
 							<div class="card-body">${m.description }</div>
 						</div>
 					</c:forEach>

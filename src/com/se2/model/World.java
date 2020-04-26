@@ -41,5 +41,10 @@ public class World {
 	public void setDeaths(int deaths) {
 		this.deaths = deaths;
 	}
+
+	@Override
+	public String toString() {
+		return "World [id=" + id + ", confirmed=" + confirmed + ", recovered=" + recovered + ", deaths=" + deaths + "]";
+	}
 	
 }

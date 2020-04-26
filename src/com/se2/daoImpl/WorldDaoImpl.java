@@ -32,13 +32,9 @@ public class WorldDaoImpl implements WorldDao{
 
 	@Override
 	public void update(World w) {
-		String sql = "update world set comfirmed=?, recoverd=? deaths=? where id=?";
 		try {
+			String sql = "update world set confirmed =  "+w.getConfirmed()+", recovered =  "+w.getRecovered()+", deaths = "+w.getDeaths()+" where id=1";
 			PreparedStatement st = con.prepareStatement(sql);
-			st.setInt(1, w.getConfirmed());
-			st.setInt(1, w.getRecovered());
-			st.setInt(1, w.getDeaths());
-			st.setInt(1, w.getId());
 			st.execute(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -47,7 +43,7 @@ public class WorldDaoImpl implements WorldDao{
 
 	@Override
 	public void delete() {
-		String sql = "update world set comfirmed=0, recoverd=0 deaths=0 where id=1";
+		String sql = "update world set confirmed=0, recovered=0, deaths=0 where id=1";
 		try {
 			Statement st = con.createStatement();
 			st.execute(sql);

@@ -58,56 +58,57 @@ public class RSSFeedParser {
 			XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
 			// read the XML document
 			while (eventReader.hasNext()) {
+
 				XMLEvent event = eventReader.nextEvent();
-				if (event.isStartElement()) {
-					String localPart = event.asStartElement().getName().getLocalPart();
-					switch (localPart) {
-					case ITEM:
-						if (isFeedHeader) {
-							isFeedHeader = false;
-							feed = new Feed(title, link, description, language, copyright, pubdate);
+				if (event.toString().length() < 50) {
+					if (event.isStartElement()) {
+						String localPart = event.asStartElement().getName().getLocalPart();
+						switch (localPart) {
+						case ITEM:
+							if (isFeedHeader) {
+								isFeedHeader = false;
+								feed = new Feed(title, link, description, language, copyright, pubdate);
+							}
+							break;
+						case TITLE:
+							title = getCharacterData(event, eventReader);
+							break;
+						case DESCRIPTION:
+							description = getCharacterData(event, eventReader);
+							break;
+						case LINK:
+							link = getCharacterData(event, eventReader);
+							break;
+						case GUID:
+							guid = getCharacterData(event, eventReader);
+							break;
+						case LANGUAGE:
+							language = getCharacterData(event, eventReader);
+							break;
+						case AUTHOR:
+							author = getCharacterData(event, eventReader);
+							break;
+						case PUB_DATE:
+							pubdate = getCharacterData(event, eventReader);
+							break;
+						case COPYRIGHT:
+							copyright = getCharacterData(event, eventReader);
+							break;
 						}
-						event = eventReader.nextEvent();
-						break;
-					case TITLE:
-						title = getCharacterData(event, eventReader);
-						break;
-					case DESCRIPTION:
-						description = getCharacterData(event, eventReader);
-						break;
-					case LINK:
-						link = getCharacterData(event, eventReader);
-						break;
-					case GUID:
-						guid = getCharacterData(event, eventReader);
-						break;
-					case LANGUAGE:
-						language = getCharacterData(event, eventReader);
-						break;
-					case AUTHOR:
-						author = getCharacterData(event, eventReader);
-						break;
-					case PUB_DATE:
-						pubdate = getCharacterData(event, eventReader);
-						break;
-					case COPYRIGHT:
-						copyright = getCharacterData(event, eventReader);
-						break;
-					}
-				} else if (event.isEndElement()) {
-					if (event.asEndElement().getName().getLocalPart() == (ITEM)) {
-						if (author.contains("covid-19") || description.contains("covid") || guid.contains("covid")
-								|| link.contains("covid") || title.contains("covid")) {
-							FeedMessage message = new FeedMessage();
-							message.setAuthor(author);
-							message.setDescription(description);
-							message.setPubDate(pubdate);
-							message.setLink(link);
-							message.setTitle(title);
-							feed.getMessages().add(message);
+					} else if (event.isEndElement()) {
+						if (event.asEndElement().getName().getLocalPart() == (ITEM)) {
+							if (author.contains("covid-19") || description.contains("covid") || guid.contains("covid")
+									|| link.contains("covid") || title.contains("covid")) {
+								FeedMessage message = new FeedMessage();
+								message.setAuthor(author);
+								message.setDescription(description);
+								message.setPubDate(pubdate);
+								message.setLink(link);
+								message.setTitle(title);
+								feed.getMessages().add(message);
+							}
+							continue;
 						}
-						event = eventReader.nextEvent();
-						continue;
 					}
 				}
 			}

@@ -38,7 +38,7 @@ public class WorldController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = (request.getParameter("action")==null)?"":request.getParameter("action");
-		System.out.println("action="+action);
+
 		try {
 			switch (action) {
 			case "delete":
@@ -93,6 +93,7 @@ public class WorldController extends HttpServlet {
 		w.setConfirmed(Integer.parseInt(request.getParameter("confirmed")));
 		w.setRecovered(Integer.parseInt(request.getParameter("recovered")));
 		w.setDeaths(Integer.parseInt(request.getParameter("deaths")));
+
 		wDao.update(w);
 		response.sendRedirect(request.getContextPath()+"/world");
 	}
