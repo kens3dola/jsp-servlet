@@ -19,7 +19,6 @@ import com.se2.daoImpl.ContinentDaoImpl;
 import com.se2.daoImpl.WorldDaoImpl;
 import com.se2.model.Continent;
 import com.se2.model.Feed;
-import com.se2.model.FeedMessage;
 import com.se2.model.World;
 
 @WebServlet("/home")

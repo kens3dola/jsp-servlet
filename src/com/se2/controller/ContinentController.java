@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.se2.dao.ContinentDao;
 import com.se2.daoImpl.ContinentDaoImpl;
 import com.se2.model.Continent;
 
@@ -87,21 +86,6 @@ public class ContinentController extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("views/continent/showFormContinent.jsp");
 		request.setAttribute("continent",existingContinent);
 		dispatcher.forward(request, response);
-		
-//		String id = request.getParameter("id");
-//
-//	    int x = 0;
-//	    if(id!=null){
-//	      try{
-//	        x = Integer.parseInt(id);
-//	       }catch(Exception e){
-//	       }
-//
-//	    }
-//		ContinentModel existingContinent = continentDao.selectContinent(x);
-//		RequestDispatcher dispatcher = request.getRequestDispatcher("views/continent/showFormcontinent.jsp");
-//		request.setAttribute("continent", existingContinent);
-//		dispatcher.forward(request, response);
 
 	}
 

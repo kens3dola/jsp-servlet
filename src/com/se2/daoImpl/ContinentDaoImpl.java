@@ -15,7 +15,6 @@ public class ContinentDaoImpl implements ContinentDao{
 	
 	@Override
 	public void insertContinent(Continent continent) throws SQLException, ClassNotFoundException {
-//		Class.forName("com.mysql.cj.jdbc.Driver");
 		try(Connection connection = JdbcConnection.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement("insert into continent (name,confirmed,recovered,deaths) values (?,?,?,?);")){
 			preparedStatement.setString(1,continent.getName());
@@ -32,7 +31,6 @@ public class ContinentDaoImpl implements ContinentDao{
 	@Override
 	public boolean updateContinent(Continent continent) throws SQLException, ClassNotFoundException {
 		boolean rowUpdated;
-//		Class.forName("com.mysql.cj.jdbc.Driver");
 		try (Connection connection = JdbcConnection.getConnection();
 				PreparedStatement statement = connection.prepareStatement("update continent set name =?,confirmed=?,recovered=?,deaths=? where id=?;");) {
 			
@@ -49,7 +47,6 @@ public class ContinentDaoImpl implements ContinentDao{
 
 	@Override
 	public boolean deleteContinent(int id) throws SQLException, ClassNotFoundException {
-//		Class.forName("com.mysql.cj.jdbc.Driver");
 		boolean rowDeleted;
 		try (Connection connection = JdbcConnection.getConnection();
 				PreparedStatement statement = connection.prepareStatement("delete from continent where id = ?;");) {
@@ -61,7 +58,6 @@ public class ContinentDaoImpl implements ContinentDao{
 
 	@Override
 	public List<Continent> listAllContinent() throws ClassNotFoundException {
-//		Class.forName("com.mysql.cj.jdbc.Driver");
 		List<Continent> continent = new ArrayList<>();
 		// Step 1: Establishing a Connection
 		try (Connection connection = JdbcConnection.getConnection();
