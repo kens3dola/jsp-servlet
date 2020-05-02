@@ -25,20 +25,42 @@
 			</div>
 		</div>
 
-		<div class="col-md-3">
+		<div class="col-md-2">
 			<div class="card">
 				<div class="card-header">Continents</div>
 				<div class="card-body">
-					<span class="badge badge-primary">Confirmed:
-						${world.confirmed }</span> <br> <span class="badge badge-success">Recovered:
-						${world.recovered }</span> <br> <span class="badge badge-danger">Deaths:
-						${world.deaths }</span>
+				<c:forEach var="continent" items="${continent}">
+				<span class="badge badge-primary">
+					Name:${continent.name }</span><br>
+					<span class="badge badge-primary">
+					Confirmed:${continent.confirmed }</span> <br> <span class="badge badge-success">Recovered:
+						${continent.recovered }</span> <br> <span class="badge badge-danger">Deaths:
+						${continent.deaths }</span> <br ><br>
+						</c:forEach>
 				</div>
 				
 			</div>
 		</div>
+		<div class="col-md-2">
+			<div class="card">
+				<div class="card-header">Countries</div>
+				<div class="card-body">
+					<c:forEach var="c" items="${listCountry}">
+						<span>${c.name}</span>
+						<br>
+						<span>${c.continent_id}</span>
+						<br>
+						<span class="badge badge-primary">${c.confirmed}</span>
+						<br>
+						<span class="badge badge-success">${c.recovered}</span>
+						<br>
+						<span class="badge badge-danger">${c.deaths}</span>
+					</c:forEach>
+				</div>
+			</div>
+		</div>
 
-		<div class="col-md-3">
+		<div class="col-md-2">
 			<div class="card">
 				<div class="card-header">Cities</div>
 				<div class="card-body">

@@ -5,7 +5,7 @@
 
 <html>
 <head>
-<title>Continent</title>
+<title>User Management Application</title>
 
 </head>
 <body>
@@ -16,13 +16,13 @@
 		<!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
 
 		<div class="container">
-			<h3 class="text-center">List of Continents</h3>
+			<h3 class="text-center">List of Country</h3>
 			<hr>
 			<div class="container text-left">
         <div class="container text-left">
 
-				<a href="<%=request.getContextPath()%>/continent?action=new" class="btn btn-success">Add
-					New Continent</a>
+				<a href="<%=request.getContextPath()%>/country?action=new" class="btn btn-success">Add
+					New Country</a>
 			</div>
 				
 			</div>
@@ -33,24 +33,27 @@
 					
 						<th>Name</th>
 						<th>Confirmed</th>
-						<th>Discovred</th>
-						<th>Deaths</th>
-						<th>Action</th>
+						<th>recovered</th>
+						<th>deaths</th>
+                                                <th>continent id</th>
+                                                <th>Actions</th>
+						
 					</tr>
 				</thead>
 				<tbody>
 					<!--   for (Todo todo: todos) {  -->
-					<c:forEach var="continent" items="${listContinent}">
+					<c:forEach var="country" items="${listCountry}">
 
 						<tr>
-							<td><c:out value="${continent.name}" /></td>
-							<td><c:out value="${continent.confirmed}" /></td>
-							<td><c:out value="${continent.recovered}" /></td>
-							<td><c:out value="${continent.deaths}" /></td>
-							
-							<td><a href="continent?action=edit&id=<c:out value='${continent.id}' />">Edit</a>
+							<td><c:out value="${country.name}" /></td>
+							<td><c:out value="${country.confirmed}" /></td>
+							<td><c:out value="${country.recovered}" /></td>
+							<td><c:out value="${country.deaths}" /></td>
+							<td><c:out value="${country.continent_id}" /></td>
+
+							<td><a href="country?action=update&id=<c:out value='${country.id}' />">Edit</a>
 								&nbsp;&nbsp;&nbsp;&nbsp; <a
-								href="continent?action=delete&id=<c:out value='${continent.id}' />">Delete</a></td>
+								href="country?action=delete&id=<c:out value='${country.id}' />">Delete</a></td>
 						</tr>
 					</c:forEach>
 					<!-- } -->

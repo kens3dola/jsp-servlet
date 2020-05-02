@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>jsp-servlet2</name>
+	<name>Test</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -28,17 +28,4 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>WebContent/WEB-INF/lib/servlet-api-2.5.jar</name>
-			<type>1</type>
-			<location>C:/Users/Reds/eclipse-workspace/corona/WebContent/WEB-INF/lib/servlet-api-2.5.jar</location>
-		</link>
-	</linkedResources>
-	<variableList>
-		<variable>
-			<name>copy_PARENT</name>
-			<value>$%7BPARENT-1-PROJECT_LOC%7D</value>
-		</variable>
-	</variableList>
 </projectDescription>
