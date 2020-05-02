@@ -53,7 +53,8 @@ CREATE TABLE `city` (
   `name` varchar(100) NOT NULL,
   `confirmed` int(11) NOT NULL,
   `recovered` int(11) NOT NULL,
-  `deaths` int(11) NOT NULL
+  `deaths` int(11) NOT NULL, 
+  `country_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
