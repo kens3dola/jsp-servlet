@@ -16,7 +16,7 @@ public class CityDaoImpl implements CityDao {
 	private static final String SELECT_CITY_BY_ID = "select * from city where id= ?";
 	private static final String SELECT_ALL_CITY = "select * from city";
 	private static final String DELETE_CITY_BY_ID = "delete from city where id = ?";
-	private static final String UPDATE_CITY = "update user set name=?, confirmed=?, recovered=?, deaths=? where id=?;";
+	private static final String UPDATE_CITY = "update city set name=?, confirmed=?, recovered=?, deaths=? where id=?;";
 	
 	public CityDaoImpl() {}
 	@Override
@@ -70,6 +70,7 @@ public class CityDaoImpl implements CityDao {
 			prep.setInt(2, city.getConfirmed());
 			prep.setInt(3, city.getRecovered());
 			prep.setInt(4, city.getDeaths());
+			System.out.println(prep);
 			prep.executeUpdate();
 		}catch(SQLException e) {
 			JdbcConnection.printSQLException(e);

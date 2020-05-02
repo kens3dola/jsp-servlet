@@ -14,13 +14,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.se2.dao.CityDao;
 import com.se2.dao.ContinentDao;
 import com.se2.dao.CountryDao;
 import com.se2.dao.RSSFeedParser;
 import com.se2.dao.WorldDao;
+import com.se2.daoImpl.CityDaoImpl;
 import com.se2.daoImpl.ContinentDaoImpl;
 import com.se2.daoImpl.CountryDaoImpl;
 import com.se2.daoImpl.WorldDaoImpl;
+import com.se2.model.City;
 import com.se2.model.Continent;
 import com.se2.model.Country;
 import com.se2.model.Feed;
@@ -32,6 +35,7 @@ public class MainController extends HttpServlet {
 	private WorldDao wDao;
 	private ContinentDao cDao;
 	private CountryDao countryDao;
+	private CityDao cityDao;
 	
 	@Override
 	public void init() throws ServletException {
@@ -39,6 +43,7 @@ public class MainController extends HttpServlet {
 		wDao= new WorldDaoImpl();
 		cDao = new ContinentDaoImpl();
 		countryDao = new CountryDaoImpl();
+		cityDao = new CityDaoImpl();
 	}
        
     public MainController() {
@@ -73,10 +78,16 @@ public class MainController extends HttpServlet {
        } catch (SQLException ex) {
            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
        }
+		List<City> listCity = new ArrayList<City>();
+        try {	
+            listCity = cityDao.listCity();
+       } catch (SQLException ex) {
+           Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+       }
 		
 		request.setAttribute("continent", listContinent);
         request.setAttribute("listCountry", listCountry);
-        System.out.println(listCountry.size());
+        request.setAttribute("listCity", listCity);
 
 		RequestDispatcher rd = request.getRequestDispatcher("views/home.jsp");
 		rd.forward(request, response);

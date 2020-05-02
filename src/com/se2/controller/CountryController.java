@@ -49,7 +49,6 @@ public class CountryController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res)
 		throws ServletException, IOException{
 		String action = (req.getParameter("action")==null)?"":req.getParameter("action");
-                System.out.println(action);
 		try {
 			switch(action) {
 			case "new":
@@ -105,7 +104,6 @@ public class CountryController extends HttpServlet {
                 int continent_id = Integer.parseInt(req.getParameter("continent_id"));
 		
 		Country newCountry = new Country(name, confirmed, recovered, deaths, continent_id);
-                System.out.println(newCountry.toString());
 		countrydao.insertCountry(newCountry);
 		res.sendRedirect("country");
 	}

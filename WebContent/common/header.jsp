@@ -34,9 +34,7 @@
 				<a href="<%=request.getContextPath()%>/country"
 					class="list-group-item list-group-item-action bg-light">Country</a>
 				<a href="<%=request.getContextPath()%>/city"
-					class="list-group-item list-group-item-action bg-light">City</a> <a
-					href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+					class="list-group-item list-group-item-action bg-light">City</a>
 			</div>
 		</div>
 	</c:if>
