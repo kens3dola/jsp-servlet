@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2020 at 10:45 AM
+-- Generation Time: Jun 01, 2020 at 11:17 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -21,10 +21,10 @@ SET time_zone = "+00:00";
 --
 -- Database: `se2`
 --
-CREATE DATABASE `se2`;
+CREATE DATABASE IF NOT EXISTS `se2` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `se2`;
--- --------------------------------------------------------
 
+-- --------------------------------------------------------
 --
 -- Table structure for table `account`
 --
@@ -45,161 +45,54 @@ INSERT INTO `account` (`id`, `username`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `city`
+--
+-- Table structure for table `statistic`
 --
 
-CREATE TABLE `city` (
+CREATE TABLE `statistic` (
   `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `confirmed` int(11) NOT NULL,
-  `recovered` int(11) NOT NULL,
-  `deaths` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `city`
---
-
-INSERT INTO `city` (`id`, `name`, `confirmed`, `recovered`, `deaths`) VALUES
-(1, 'Hà Nội', 116, 82, 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `continent`
---
-
-CREATE TABLE `continent` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `confirmed` int(11) NOT NULL,
-  `recovered` int(11) NOT NULL,
-  `deaths` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `continent`
---
-
-INSERT INTO `continent` (`id`, `name`, `confirmed`, `recovered`, `deaths`) VALUES
-(1, 'Asia', 358921, 170488, 14079);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `country`
---
-
-CREATE TABLE `country` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `confirmed` int(11) NOT NULL,
-  `recovered` int(11) NOT NULL,
   `deaths` int(11) NOT NULL,
-  `continent_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `country`
---
-
-INSERT INTO `country` (`id`, `name`, `confirmed`, `recovered`, `deaths`, `continent_id`) VALUES
-(1, 'China', 83597, 77029, 4632, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `world`
---
-
-CREATE TABLE `world` (
-  `id` int(11) NOT NULL,
-  `confirmed` int(11) NOT NULL,
   `recovered` int(11) NOT NULL,
-  `deaths` int(11) NOT NULL
+  `pub_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `world`
+-- Dumping data for table `statistic`
 --
 
-INSERT INTO `world` (`id`, `confirmed`, `recovered`, `deaths`) VALUES
-(1, 2240191, 568343, 153822);
+INSERT INTO `statistic` (`id`,`code`,`name`, `confirmed`, `deaths`, `recovered`) VALUES
+(1,"world","world", 100, 100, 100);
 
---
+
+
+
+
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `account`
+-- Indexes for table `statistic`
 --
-ALTER TABLE `account`
+ALTER TABLE `statistic`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `city`
---
-ALTER TABLE `city`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `continent`
---
-ALTER TABLE `continent`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `country`
---
-ALTER TABLE `country`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk` (`continent_id`);
-
---
--- Indexes for table `world`
---
-ALTER TABLE `world`
-  ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `account`
+-- AUTO_INCREMENT for table `statistic`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `city`
---
-ALTER TABLE `city`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `continent`
---
-ALTER TABLE `continent`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `country`
---
-ALTER TABLE `country`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `country`
---
-ALTER TABLE `country`
-  ADD CONSTRAINT `fk` FOREIGN KEY (`continent_id`) REFERENCES `continent` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION;
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `statistic`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
-
+use se2;
+select * from statistic;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

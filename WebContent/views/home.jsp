@@ -8,29 +8,49 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Index</title>
+<%
+	boolean islogin = (session.getAttribute("islogin") == null) ? false
+			: (boolean) session.getAttribute("islogin");
+%>
 
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<div class="row" style="height: 100%; overflow: auto">
-		<div class="col-md-2 p-1">
+	<div class="col-md-2 p-1">
 			<div class="card">
-				<div class="card-header">World</div>
+				<div class="card-header">world</div>
 				<div class="card-body">
-					<span class="badge badge-primary">Confirmed:
-						${world.confirmed }</span> <br> <span class="badge badge-success">Recovered:
-						${world.recovered }</span> <br> <span class="badge badge-danger">Deaths:
-						${world.deaths }</span>
+					<c:forEach var="world" items="${world}">
+						<span class="badge badge-warning"> Name:${world.name }</span>
+						<br>
+						<span class="badge badge-primary">
+							Confirmed:${world.confirmed }</span>
+						<br>
+						<span class="badge badge-success">Recovered:
+							${world.recovered }</span>
+						<br>
+						<span class="badge badge-danger">Deaths: ${world.deaths }</span>
+						<br>	
+						<hr>
+							<c:if test="${islogin}">
+								<a href="statistic?action=update&id=<c:out value='${world.id}' />"><button type="button" class="btn btn-primary btn-sm">Update</button></a>
+			               </c:if>
+			              <a href=""><button type="button" class="btn btn-primary btn-sm">Chart</button></a>
+					</c:forEach>
+				
 				</div>
-			</div>
-		</div>
 
-		<div class="col-md-2 p-1">
+			</div>
+			
+		</div>
+		
+	<div class="col-md-2 p-1">
 			<div class="card">
-				<div class="card-header">Continents</div>
+				<div class="card-header">continent</div>
 				<div class="card-body">
 					<c:forEach var="continent" items="${continent}">
-						<span class="badge badge-primary"> Name:${continent.name }</span>
+						<span class="badge badge-warning"> Name:${continent.name }</span>
 						<br>
 						<span class="badge badge-primary">
 							Confirmed:${continent.confirmed }</span>
@@ -40,37 +60,53 @@
 						<br>
 						<span class="badge badge-danger">Deaths: ${continent.deaths }</span>
 						<br>
+						<c:if test="${islogin}">
+								<a href="statistic?action=update&id=<c:out value='${continent.id}' />"><button type="button" class="btn btn-primary btn-sm">Update</button></a>
+			               </c:if>	
+			                <a href=""><button type="button" class="btn btn-primary btn-sm">Chart</button></a>
 						<hr>
+					 
 					</c:forEach>
+					
 				</div>
 
 			</div>
+			
 		</div>
-		<div class="col-md-2 p-1">
+	<div class="col-md-2 p-1">
 			<div class="card">
-				<div class="card-header">Countries</div>
+				<div class="card-header">country</div>
 				<div class="card-body">
-					<c:forEach var="c" items="${listCountry}">
-						<span class="badge badge-primary"> Name:${c.name }</span>
+					<c:forEach var="country" items="${country}">
+						<span class="badge badge-warning"> Name:${country.name }</span>
 						<br>
-						<span class="badge badge-primary"> Confirmed:${c.confirmed }</span>
+						<span class="badge badge-primary">
+							Confirmed:${country.confirmed }</span>
 						<br>
-						<span class="badge badge-success">Recovered: ${c.recovered }</span>
+						<span class="badge badge-success">Recovered:
+							${country.recovered }</span>
 						<br>
-						<span class="badge badge-danger">Deaths: ${c.deaths }</span>
+						<span class="badge badge-danger">Deaths: ${country.deaths }</span>
 						<br>
+						<c:if test="${islogin}">
+								<a href="statistic?action=update&id=<c:out value='${country.id}' />"><button type="button" class="btn btn-primary btn-sm">Update</button></a>
+			               </c:if>	
+			                <a href=""><button type="button" class="btn btn-primary btn-sm">Chart</button></a>
 						<hr>
+							
 					</c:forEach>
+				
 				</div>
-			</div>
-		</div>
 
-		<div class="col-md-2 p-1">
+			</div>
+			
+		</div>
+			<div class="col-md-2 p-1">
 			<div class="card">
-				<div class="card-header">Cities</div>
+				<div class="card-header">city</div>
 				<div class="card-body">
-					<c:forEach var="city" items="${listCity}">
-						<span class="badge badge-primary"> Name:${city.name }</span>
+					<c:forEach var="city" items="${city}">
+						<span class="badge badge-warning"> Name:${city.name }</span>
 						<br>
 						<span class="badge badge-primary">
 							Confirmed:${city.confirmed }</span>
@@ -80,11 +116,20 @@
 						<br>
 						<span class="badge badge-danger">Deaths: ${city.deaths }</span>
 						<br>
+						<c:if test="${islogin}">
+								<a href="statistic?action=update&id=<c:out value='${city.id}' />"><button type="button" class="btn btn-primary btn-sm">Update</button></a>
+			               </c:if>	
+			                <a href=""><button type="button" class="btn btn-primary btn-sm">Chart</button></a>
 						<hr>
+							
 					</c:forEach>
+				
 				</div>
+
 			</div>
+			
 		</div>
+		
 
 		<div class="col-md-4 p-1" style="height: 90vh; overflow: auto">
 			<c:if test="${feed==null }">

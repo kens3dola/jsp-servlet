@@ -14,36 +14,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.se2.dao.CityDao;
-import com.se2.dao.ContinentDao;
-import com.se2.dao.CountryDao;
+
 import com.se2.dao.RSSFeedParser;
-import com.se2.dao.WorldDao;
-import com.se2.daoImpl.CityDaoImpl;
-import com.se2.daoImpl.ContinentDaoImpl;
-import com.se2.daoImpl.CountryDaoImpl;
-import com.se2.daoImpl.WorldDaoImpl;
-import com.se2.model.City;
-import com.se2.model.Continent;
-import com.se2.model.Country;
+import com.se2.dao.StatisticDao;
+import com.se2.daoImpl.StatisticDaoImpl;
 import com.se2.model.Feed;
-import com.se2.model.World;
+import com.se2.model.Statistic;
+
 
 @WebServlet("/home")
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private WorldDao wDao;
-	private ContinentDao cDao;
-	private CountryDao countryDao;
-	private CityDao cityDao;
+
+	private StatisticDao statisticDao;
 	
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		wDao= new WorldDaoImpl();
-		cDao = new ContinentDaoImpl();
-		countryDao = new CountryDaoImpl();
-		cityDao = new CityDaoImpl();
+	
+		statisticDao = new StatisticDaoImpl();
 	}
        
     public MainController() {
@@ -55,40 +44,41 @@ public class MainController extends HttpServlet {
                 "https://thanhnien.vn/rss/viet-nam.rss");
         Feed feed = parser.readFeed();
         request.setAttribute("feed", feed.getMessages());
-		World w = null;
+		
+		List<Statistic> listWorld = new ArrayList<Statistic>();
 		try {
-			w = wDao.get();
-			
+			listWorld = statisticDao.listWorld();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-
 		}
-		request.setAttribute("world", w);
-		List<Continent> listContinent = new ArrayList<Continent>();
-		try {
-			listContinent = cDao.listAllContinent();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		List<Country> listCountry = new ArrayList<Country>();
-        try {	
-            listCountry = countryDao.listCountry();
-       } catch (SQLException ex) {
-           Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-       }
-		List<City> listCity = new ArrayList<City>();
-        try {	
-            listCity = cityDao.listCity();
-       } catch (SQLException ex) {
-           Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-       }
-		
-		request.setAttribute("continent", listContinent);
-        request.setAttribute("listCountry", listCountry);
-        request.setAttribute("listCity", listCity);
-
+		        request.setAttribute("world", listWorld);
+		        List<Statistic> listContinent = new ArrayList<Statistic>();
+				try {
+					listContinent = statisticDao.listAllContinent();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				        request.setAttribute("continent", listContinent);
+			List<Statistic> listCountry = new ArrayList<Statistic>();
+						try {
+							listCountry = statisticDao.listAllCountry();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						        request.setAttribute("country", listCountry);
+			List<Statistic> listCity = new ArrayList<Statistic>();
+				try {
+					listCity = statisticDao.listAllCity();
+					} catch (SQLException e) {
+									// TODO Auto-generated catch block
+						e.printStackTrace();
+								}
+					request.setAttribute("city", listCity);
+		  
+        
 		RequestDispatcher rd = request.getRequestDispatcher("views/home.jsp");
 		rd.forward(request, response);
 		

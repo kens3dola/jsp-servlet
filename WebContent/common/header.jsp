@@ -19,7 +19,8 @@
 			: (boolean) session.getAttribute("islogin");
 %>
 
-<!-- Custom styles for this template -->
+<!-- Custom styles for this
+ template -->
 <link href="<c:url value = "/style/css/simple-sidebar.css"/>"
 	rel="stylesheet">
 <div class="d-flex" id="wrapper">
@@ -27,14 +28,17 @@
 		<div class="bg-light border-right" id="sidebar-wrapper">
 			<div class="sidebar-heading">Statistics managing</div>
 			<div class="list-group list-group-flush">
-				<a href="<%=request.getContextPath()%>/world"
+				<a href=""
 					class="list-group-item list-group-item-action bg-light">World</a> <a
-					href="<%=request.getContextPath()%>/continent"
+					href=""
 					class="list-group-item list-group-item-action bg-light">Continent</a>
-				<a href="<%=request.getContextPath()%>/country"
+				<a href=""
 					class="list-group-item list-group-item-action bg-light">Country</a>
-				<a href="<%=request.getContextPath()%>/city"
+				<a href=""
 					class="list-group-item list-group-item-action bg-light">City</a>
+					<a href="statistic?action=new" 
+					class="list-group-item list-group-item-action bg-light"><button type="sucess" class="btn btn-success">Add Statistic</button></a>
+					
 			</div>
 		</div>
 	</c:if>
