@@ -13,4 +13,8 @@ public interface StatisticDao {
 	List<Statistic> listAllCountry() throws SQLException  ;
 	List<Statistic> listAllCity() throws SQLException ;
 	Statistic selectStatistic(int id);
+	List<Statistic> listWorlds();
+	List<Statistic> listAllCities(String s);
+	List<Statistic> listAllContinents(String s);
+	List<Statistic> listAllCountries(String s);
 }

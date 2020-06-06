@@ -5,7 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import com.se2.config.JdbcConnection;
@@ -13,57 +14,66 @@ import com.se2.dao.StatisticDao;
 
 import com.se2.model.Statistic;
 
-public class StatisticDaoImpl implements StatisticDao{
+public class StatisticDaoImpl implements StatisticDao {
+
+	private Connection con;
+
+	public StatisticDaoImpl() {
+		// TODO Auto-generated constructor stub
+		this.con = JdbcConnection.getInstance().getConnection();
+	}
 
 	@Override
 	public void insertStatistic(Statistic statistic) throws SQLException {
-		try(Connection connection = JdbcConnection.getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement("insert into statistic (code,name,confirmed,recovered,deaths) values (?,?,?,?,?);")){
-			preparedStatement.setString(1,statistic.getCode());
-			preparedStatement.setString(2,statistic.getName());
+		try (PreparedStatement preparedStatement = con.prepareStatement(
+				"insert into statistic (code,name,confirmed,recovered,deaths,pub_date) values (?,?,?,?,?,?);")) {
+			preparedStatement.setString(1, statistic.getCode());
+			preparedStatement.setString(2, statistic.getName());
 			preparedStatement.setInt(3, statistic.getConfirmed());
 			preparedStatement.setInt(4, statistic.getRecovered());
-			preparedStatement.setInt(5,statistic.getDeaths());
+			preparedStatement.setInt(5, statistic.getDeaths());
+			preparedStatement.setDate(6, statistic.getDate());
 			preparedStatement.executeUpdate();
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			JdbcConnection.printSQLException(e);
 		}
-		
-		
+
 	}
 
 	@Override
 	public boolean updateStatistic(Statistic statistic) throws SQLException {
-		boolean rowUpdated;
-		try (Connection connection = JdbcConnection.getConnection();
-				PreparedStatement statement = connection.prepareStatement("insert into statistic (code,name,confirmed,recovered,deaths) values (?,?,?,?,?);");) {
-			statement.setString(1,statistic.getCode());
-			statement.setString(2,statistic.getName());
-			statement.setInt(3, statistic.getConfirmed());
-			statement.setInt(4, statistic.getRecovered());
-			statement.setInt(5,statistic.getDeaths());
-    
-
-			rowUpdated = statement.executeUpdate() > 0;
+		boolean rowUpdated = true;
+		PreparedStatement statement = con.prepareStatement(
+				"update statistic set confirmed=?,recovered=?,deaths=? where code=? and name=? and pub_date=?");
+		statement.setString(4, statistic.getCode());
+		statement.setString(5, statistic.getName());
+		statement.setInt(1, statistic.getConfirmed());
+		statement.setInt(2, statistic.getRecovered());
+		statement.setInt(3, statistic.getDeaths());
+		statement.setDate(6, statistic.getDate());
+		int rUpdated = statement.executeUpdate();
+		if (rUpdated == 0) {
+			try (PreparedStatement st = con.prepareStatement(
+					"insert into statistic (code,name,confirmed,recovered,deaths,pub_date) values (?,?,?,?,?,?);");) {
+				st.setString(1, statistic.getCode());
+				st.setString(2, statistic.getName());
+				st.setInt(3, statistic.getConfirmed());
+				st.setInt(4, statistic.getRecovered());
+				st.setInt(5, statistic.getDeaths());
+				st.setDate(6, statistic.getDate());
+				rowUpdated = st.executeUpdate() > 0;
+			}
 		}
 		return rowUpdated;
 	}
 
 	@Override
-	public List<Statistic> listAllContinent()  {
+	public List<Statistic> listAllContinent() {
 		List<Statistic> continent = new ArrayList<>();
-		// Step 1: Establishing a Connection
-		try (Connection connection = JdbcConnection.getConnection();
-				//"WITH ranked_statistic AS (SELECT m.*, ROW_NUMBER() OVER (PARTITION BY name ORDER BY id DESC) AS rn FROM statistic AS m)SELECT * FROM ranked_statistic WHERE rn = 1 having code ='world';"
-				
-				// Step 2:Create a statement using connection object
-			PreparedStatement preparedStatement = connection.prepareStatement("WITH ranked_statistic AS (SELECT m.*, ROW_NUMBER() OVER (PARTITION BY name ORDER BY id DESC) AS rn FROM statistic AS m)SELECT * FROM ranked_statistic WHERE rn = 1 having code ='continent';");
-				) {
-			System.out.println(preparedStatement);
-			// Step 3: Execute the query or update query
-			ResultSet rs = preparedStatement.executeQuery();
+		try (PreparedStatement preparedStatement = con.prepareStatement(
+				"WITH ranked_statistic AS (SELECT m.*, ROW_NUMBER() OVER (PARTITION BY name ORDER BY id DESC) AS rn FROM statistic AS m)SELECT * FROM ranked_statistic WHERE rn = 1 having code ='continent';");) {
 
-			// Step 4: Process the ResultSet object.
+			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String code = rs.getString("code");
@@ -71,28 +81,23 @@ public class StatisticDaoImpl implements StatisticDao{
 				int confirmed = rs.getInt("confirmed");
 				int recovered = rs.getInt("recovered");
 				int deaths = rs.getInt("deaths");
-				continent.add(new Statistic(id,code,name,confirmed,recovered,deaths));
-				
+				continent.add(new Statistic(id, code, name, confirmed, recovered, deaths));
+
 			}
 		} catch (SQLException e) {
 			JdbcConnection.printSQLException(e);
 		}
 		return continent;
 	}
+
 	@Override
 	public List<Statistic> listWorld() {
 		List<Statistic> continent = new ArrayList<>();
-		// Step 1: Establishing a Connection
-		try (Connection connection = JdbcConnection.getConnection();
-				//"WITH ranked_statistic AS (SELECT m.*, ROW_NUMBER() OVER (PARTITION BY name ORDER BY id DESC) AS rn FROM statistic AS m)SELECT * FROM ranked_statistic WHERE rn = 1 having code ='world';"
-				
-				// Step 2:Create a statement using connection object
-			PreparedStatement preparedStatement = connection.prepareStatement("WITH ranked_statistic AS (SELECT m.*, ROW_NUMBER() OVER (PARTITION BY name ORDER BY id DESC) AS rn FROM statistic AS m)SELECT * FROM ranked_statistic WHERE rn = 1 having code ='world';");) {
-			System.out.println(preparedStatement);
-			// Step 3: Execute the query or update query
+		try (PreparedStatement preparedStatement = con.prepareStatement(
+				"WITH ranked_statistic AS (SELECT m.*, ROW_NUMBER() OVER (PARTITION BY name ORDER BY id DESC) AS rn FROM statistic AS m)SELECT * FROM ranked_statistic WHERE rn = 1 having code ='world';");) {
+
 			ResultSet rs = preparedStatement.executeQuery();
 
-			// Step 4: Process the ResultSet object.
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String code = rs.getString("code");
@@ -100,51 +105,42 @@ public class StatisticDaoImpl implements StatisticDao{
 				int confirmed = rs.getInt("confirmed");
 				int recovered = rs.getInt("recovered");
 				int deaths = rs.getInt("deaths");
-				continent.add(new Statistic(id,code,name,confirmed,recovered,deaths));
-				
+				continent.add(new Statistic(id, code, name, confirmed, recovered, deaths));
 			}
 		} catch (SQLException e) {
 			JdbcConnection.printSQLException(e);
 		}
 		return continent;
 	}
-	
 
 	@Override
 	public Statistic selectStatistic(int id) {
 		Statistic statistic = null;
-		try(Connection conn = JdbcConnection.getConnection(); 
-				PreparedStatement prep = conn.prepareStatement("select * from statistic where id=? ");){
+		try (PreparedStatement prep = con.prepareStatement("select * from statistic where id=? ");) {
 			prep.setInt(1, id);
 			ResultSet rs = prep.executeQuery();
-				while(rs.next()) {
-					String code  = rs.getString("code");
-					String name = rs.getString("name");
-					int confirmed = rs.getInt("confirmed");
-					int recovered = rs.getInt("recovered");
-					int deaths = rs.getInt("deaths");
-					statistic = new Statistic(code,name,confirmed,recovered,deaths);
-					statistic.setId(id);
-				}
-			}catch(SQLException e) {
-				JdbcConnection.printSQLException(e);
+			while (rs.next()) {
+				String code = rs.getString("code");
+				String name = rs.getString("name");
+				int confirmed = rs.getInt("confirmed");
+				int recovered = rs.getInt("recovered");
+				int deaths = rs.getInt("deaths");
+				statistic = new Statistic(code, name, confirmed, recovered, deaths);
+				statistic.setId(id);
 			}
-			return statistic;
+		} catch (SQLException e) {
+			JdbcConnection.printSQLException(e);
+		}
+		return statistic;
 	}
 
 	@Override
-	public List<Statistic> listAllCountry()  {
+	public List<Statistic> listAllCountry() {
 		List<Statistic> country = new ArrayList<>();
-		// Step 1: Establishing a Connection
-		try (Connection connection = JdbcConnection.getConnection();
+		try (PreparedStatement preparedStatement = con.prepareStatement(
+				"WITH ranked_statistic AS (SELECT m.*, ROW_NUMBER() OVER (PARTITION BY name ORDER BY id DESC) AS rn FROM statistic AS m)SELECT * FROM ranked_statistic WHERE rn = 1 having code ='country';");) {
 
-				// Step 2:Create a statement using connection object
-				PreparedStatement preparedStatement = connection.prepareStatement("WITH ranked_statistic AS (SELECT m.*, ROW_NUMBER() OVER (PARTITION BY name ORDER BY id DESC) AS rn FROM statistic AS m)SELECT * FROM ranked_statistic WHERE rn = 1 having code ='country';");) {
-			System.out.println(preparedStatement);
-			// Step 3: Execute the query or update query
 			ResultSet rs = preparedStatement.executeQuery();
-
-			// Step 4: Process the ResultSet object.
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String code = rs.getString("code");
@@ -152,7 +148,7 @@ public class StatisticDaoImpl implements StatisticDao{
 				int confirmed = rs.getInt("confirmed");
 				int recovered = rs.getInt("recovered");
 				int deaths = rs.getInt("deaths");
-				country.add(new Statistic(id, code, name,confirmed,recovered,deaths));
+				country.add(new Statistic(id, code, name, confirmed, recovered, deaths));
 			}
 		} catch (SQLException e) {
 			JdbcConnection.printSQLException(e);
@@ -161,18 +157,12 @@ public class StatisticDaoImpl implements StatisticDao{
 	}
 
 	@Override
-	public List<Statistic> listAllCity()  {
+	public List<Statistic> listAllCity() {
 		List<Statistic> city = new ArrayList<>();
-		// Step 1: Establishing a Connection
-		try (Connection connection = JdbcConnection.getConnection();
+		try (PreparedStatement preparedStatement = con.prepareStatement(
+				"WITH ranked_statistic AS (SELECT m.*, ROW_NUMBER() OVER (PARTITION BY name ORDER BY id DESC) AS rn FROM statistic AS m)SELECT * FROM ranked_statistic WHERE rn = 1 having code ='city';");) {
 
-				// Step 2:Create a statement using connection object
-				PreparedStatement preparedStatement = connection.prepareStatement("WITH ranked_statistic AS (SELECT m.*, ROW_NUMBER() OVER (PARTITION BY name ORDER BY id DESC) AS rn FROM statistic AS m)SELECT * FROM ranked_statistic WHERE rn = 1 having code ='city';");) {
-			System.out.println(preparedStatement);
-			// Step 3: Execute the query or update query
 			ResultSet rs = preparedStatement.executeQuery();
-
-			// Step 4: Process the ResultSet object.
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String code = rs.getString("code");
@@ -180,7 +170,7 @@ public class StatisticDaoImpl implements StatisticDao{
 				int confirmed = rs.getInt("confirmed");
 				int recovered = rs.getInt("recovered");
 				int deaths = rs.getInt("deaths");
-				city.add(new Statistic(id, code ,name,confirmed,recovered,deaths));
+				city.add(new Statistic(id, code, name, confirmed, recovered, deaths));
 			}
 		} catch (SQLException e) {
 			JdbcConnection.printSQLException(e);
@@ -188,4 +178,156 @@ public class StatisticDaoImpl implements StatisticDao{
 		return city;
 	}
 
+	@Override
+	public List<Statistic> listAllCountries(String s) {
+		List<Statistic> country = new ArrayList<>();
+		try {
+			PreparedStatement preparedStatement = con
+					.prepareStatement("select * from statistic where code=? and name=?");
+			preparedStatement.setString(1, "country");
+			preparedStatement.setString(2, s);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String code = rs.getString("code");
+				String name = rs.getString("name");
+				int confirmed = rs.getInt("confirmed");
+				int recovered = rs.getInt("recovered");
+				int deaths = rs.getInt("deaths");
+				country.add(new Statistic(id, code, name, confirmed, recovered, deaths, rs.getDate("pub_date")));
+			}
+		} catch (SQLException e) {
+			JdbcConnection.printSQLException(e);
+		}
+		return country;
+	}
+
+	@Override
+	public List<Statistic> listAllCities(String s) {
+		List<Statistic> city = new ArrayList<>();
+		try {
+			PreparedStatement preparedStatement = con
+					.prepareStatement("select * from statistic where code=? and name =?");
+			preparedStatement.setString(1, "city");
+			preparedStatement.setString(2, s);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String code = rs.getString("code");
+				String name = rs.getString("name");
+				int confirmed = rs.getInt("confirmed");
+				int recovered = rs.getInt("recovered");
+				int deaths = rs.getInt("deaths");
+				city.add(new Statistic(id, code, name, confirmed, recovered, deaths, rs.getDate("pub_date")));
+			}
+		} catch (SQLException e) {
+			JdbcConnection.printSQLException(e);
+		}
+		return city;
+	}
+
+	@Override
+	public List<Statistic> listAllContinents(String s) {
+		List<Statistic> continent = new ArrayList<>();
+		try {
+			PreparedStatement preparedStatement = con
+					.prepareStatement("select * from statistic where code=? and name=?");
+			preparedStatement.setString(1, "continent");
+			preparedStatement.setString(2, s);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String code = rs.getString("code");
+				String name = rs.getString("name");
+				int confirmed = rs.getInt("confirmed");
+				int recovered = rs.getInt("recovered");
+				int deaths = rs.getInt("deaths");
+				continent.add(new Statistic(id, code, name, confirmed, recovered, deaths, rs.getDate("pub_date")));
+
+			}
+		} catch (SQLException e) {
+			JdbcConnection.printSQLException(e);
+		}
+		return continent;
+	}
+
+	@Override
+	public List<Statistic> listWorlds() {
+		List<Statistic> continent = new ArrayList<>();
+		try {
+			PreparedStatement preparedStatement = con.prepareStatement("select * from statistic where code=?");
+			preparedStatement.setString(1, "world");
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String code = rs.getString("code");
+				String name = rs.getString("name");
+				int confirmed = rs.getInt("confirmed");
+				int recovered = rs.getInt("recovered");
+				int deaths = rs.getInt("deaths");
+				continent.add(new Statistic(id, code, name, confirmed, recovered, deaths, rs.getDate("pub_date")));
+
+			}
+		} catch (SQLException e) {
+			JdbcConnection.printSQLException(e);
+		}
+		return continent;
+	}
+
+	public void updateManyCities(List<Statistic> list) throws SQLException {
+		Statistic stt = list.get(0);
+		if (checkUpdateOrInsert(stt)) {
+			System.out.println("1");
+			PreparedStatement statement = con.prepareStatement(
+					"update statistic set confirmed=?,recovered=?,deaths=? where code=? and name=? and pub_date=?");
+			Iterator<Statistic> it = list.iterator();
+			while (it.hasNext()) {
+				Statistic s = it.next();
+				statement.setString(4, s.getCode());
+				statement.setString(5, s.getName());
+				statement.setInt(1, s.getConfirmed());
+				statement.setInt(2, s.getRecovered());
+				statement.setInt(3, s.getDeaths());
+				statement.setDate(6, s.getDate());
+				statement.addBatch();
+			}
+			System.out.println(statement);
+			statement.executeBatch();
+		} else {
+			System.out.println("2");
+			PreparedStatement st = con.prepareStatement(
+					"insert into statistic (code,name,confirmed,recovered,deaths,pub_date) values (?,?,?,?,?,?);");
+			Iterator<Statistic> i = list.iterator();
+			while (i.hasNext()) {
+				Statistic sta = i.next();
+				st.setString(1, sta.getCode());
+				st.setString(2, sta.getName());
+				st.setInt(3, sta.getConfirmed());
+				st.setInt(4, sta.getRecovered());
+				st.setInt(5, sta.getDeaths());
+				st.setDate(6, sta.getDate());
+				st.addBatch();
+			}
+			System.out.println(st);
+			st.executeBatch();
+		}
+	}
+
+	private boolean checkUpdateOrInsert(Statistic stt) {
+		try {
+			PreparedStatement sm = this.con
+					.prepareStatement("select * from statistic where code=? and name=? and pub_date=?");
+			sm.setString(1, stt.getCode());
+			sm.setString(2, stt.getName());
+			sm.setDate(3, stt.getDate());
+			ResultSet rs = sm.executeQuery();
+			System.out.println(rs.next());
+			return rs.next();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

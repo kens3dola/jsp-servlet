@@ -1,11 +1,9 @@
 package com.se2.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -85,7 +83,8 @@ protected void doPost(HttpServletRequest req, HttpServletResponse res)
 		int confirmed = Integer.parseInt(req.getParameter("confirmed"));
 		int recovered = Integer.parseInt(req.getParameter("recovered"));
 		int deaths = Integer.parseInt(req.getParameter("deaths"));
-		Statistic updateStatistic = new Statistic(code, name , confirmed, recovered,deaths);
+		Date date = new Date(Calendar.getInstance().getTimeInMillis());
+		Statistic updateStatistic = new Statistic(code, name , confirmed, recovered,deaths, date);
 		statisticDao.updateStatistic(updateStatistic);
 		res.sendRedirect("home");
 	}
@@ -96,8 +95,9 @@ protected void doPost(HttpServletRequest req, HttpServletResponse res)
 		int confirmed = Integer.parseInt(req.getParameter("confirmed"));
 		int recovered = Integer.parseInt(req.getParameter("recovered"));
 		int deaths = Integer.parseInt(req.getParameter("deaths"));
-  
-		Statistic insertStatistic = new Statistic(code, name , confirmed, recovered,deaths);
+		Date date = new Date(Calendar.getInstance().getTimeInMillis());
+		
+		Statistic insertStatistic = new Statistic(code, name , confirmed, recovered,deaths, date);
 		statisticDao.insertStatistic(insertStatistic);
 		res.sendRedirect("home");
 	}

@@ -10,13 +10,14 @@ public class JdbcConnection {
 
 	private static String jdbcURL = "jdbc:mysql://localhost:3306/se2?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	private static String jdbcUsername = "root";
-	private static String jdbcPassword = "11111";
+	private static String jdbcPassword = "";
+	private static Connection connection;
+	private static JdbcConnection instance;
 
-	public static Connection getConnection() {
-		Connection connection = null;
+	private JdbcConnection() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+			this.connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -24,9 +25,25 @@ public class JdbcConnection {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public Connection getConnection() {
 		return connection;
 	}
 
+	public static JdbcConnection getInstance() {
+		if(instance == null) {
+			instance = new JdbcConnection();
+		} else
+			try {
+				if(instance.getConnection().isClosed()) {
+					instance = new JdbcConnection();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return instance;
+	}
 	public static void printSQLException(SQLException ex) {
 		for (Throwable e : ex) {
 			if (e instanceof SQLException) {

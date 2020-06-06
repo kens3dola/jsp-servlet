@@ -15,30 +15,26 @@
 	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
 	crossorigin="anonymous">
 <%
-	boolean islogin = (session.getAttribute("islogin") == null) ? false
-			: (boolean) session.getAttribute("islogin");
+	boolean islogin = (session.getAttribute("islogin") == null) ? false : (boolean) session.getAttribute("islogin");
 %>
 
 <!-- Custom styles for this
  template -->
 <link href="<c:url value = "/style/css/simple-sidebar.css"/>"
 	rel="stylesheet">
-<div class="d-flex" id="wrapper">
+<div class="d-flex toggled" id="wrapper">
 	<c:if test="${islogin}">
 		<div class="bg-light border-right" id="sidebar-wrapper">
 			<div class="sidebar-heading">Statistics managing</div>
 			<div class="list-group list-group-flush">
-				<a href=""
-					class="list-group-item list-group-item-action bg-light">World</a> <a
-					href=""
-					class="list-group-item list-group-item-action bg-light">Continent</a>
-				<a href=""
-					class="list-group-item list-group-item-action bg-light">Country</a>
-				<a href=""
-					class="list-group-item list-group-item-action bg-light">City</a>
-					<a href="statistic?action=new" 
-					class="list-group-item list-group-item-action bg-light"><button type="sucess" class="btn btn-success">Add Statistic</button></a>
-					
+				<a href="" class="list-group-item list-group-item-action bg-light">World</a>
+				<a href="" class="list-group-item list-group-item-action bg-light">Continent</a>
+				<a href="" class="list-group-item list-group-item-action bg-light">Country</a>
+				<a href="" class="list-group-item list-group-item-action bg-light">City</a>
+				<a href="statistic?action=new"
+					class="list-group-item list-group-item-action bg-light"><button
+						type="sucess" class="btn btn-success">Add Statistic</button></a>
+
 			</div>
 		</div>
 	</c:if>
@@ -66,22 +62,15 @@
 					<li class="nav-item active"><a class="nav-link"
 						href="<%=request.getContextPath()%>/home">Home <span
 							class="sr-only">(current)</span></a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Report</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> Account </a>
-						<div class="dropdown-menu dropdown-menu-right"
-							aria-labelledby="navbarDropdown">
-							<c:if test="${!islogin}">
-								<a href="<%=request.getContextPath()%>/login" class="nav-link">Login</a>
-							</c:if>
-							<c:if test="${islogin}">
-								<a href="<%=request.getContextPath()%>/changepassword"
-									class="nav-link">Change password</a>
-								<a href="<%=request.getContextPath()%>/logout" class="nav-link">Logout</a>
-							</c:if>
-						</div></li>
+					<c:if test="${islogin}">
+						<li class="nav-item"><a class="nav-link"
+							href="<%=request.getContextPath()%>/import">Import</a></li>
+					</c:if>
+					<li class="nav-item active"><c:if test="${!islogin}">
+							<a href="<%=request.getContextPath()%>/login" class="nav-link">Login</a>
+						</c:if> <c:if test="${islogin}">
+							<a href="<%=request.getContextPath()%>/logout" class="nav-link">Logout</a>
+						</c:if></li>
 				</ul>
 			</div>
 		</nav>
