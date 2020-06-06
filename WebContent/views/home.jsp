@@ -3,8 +3,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 
 <!DOCTYPE html>
+<c:set var="current" value="${param.ddLanguage}" scope="session"/>
+<c:if test="${not empty current}">
+    <fmt:setLocale value="${current}" scope="session"/>
+</c:if>
+<fmt:setBundle basename="com/se2/resources/message" scope="session"/>
+
 <html>
 <head>
 <meta charset="ISO-8859-1">
@@ -30,7 +38,7 @@
 
 				<div class="col-md-3 p-0">
 					<div class="card" style="height: 90vh; overflow: auto">
-						<div class="card-header">World</div>
+						<div class="card-header"><fmt:message>world</fmt:message></div>
 						<div class="card-body">
 							<c:forEach var="world" items="${world}">
 
@@ -45,10 +53,10 @@
 								<c:if test="${islogin}">
 									<a
 										href="statistic?action=update&id=<c:out value='${world.id}' />"><button
-											type="button" class="btn btn-primary btn-sm">Update</button></a>
+											type="button" class="btn btn-primary btn-sm"><fmt:message>update</fmt:message></button></a>
 								</c:if>
 								<a href="<%=request.getContextPath()%>/charts?code=world"><button
-										type="button" class="btn btn-primary btn-sm">Chart</button></a>
+										type="button" class="btn btn-primary btn-sm"><fmt:message>chart</fmt:message></button></a>
 								<hr>
 							</c:forEach>
 
@@ -57,12 +65,12 @@
 				</div>
 				<div class="col-md-3 p-0">
 					<div class="card" style="height: 90vh; overflow: auto">
-						<div class="card-header">Continent</div>
+						<div class="card-header"><fmt:message>continent</fmt:message></div>
 						<div class="card-body">
 
-							<span class="badge badge-primary">Confirmed</span> <span
-								class="badge badge-success">Recovered</span> <span
-								class="badge badge-danger">Deaths</span>
+							<span class="badge badge-primary"><fmt:message>confirmed</fmt:message></span> <span
+								class="badge badge-success"><fmt:message>recovered</fmt:message></span> <span
+								class="badge badge-danger"><fmt:message>deaths</fmt:message></span>
 							<hr>
 							<c:forEach var="continent" items="${continent}">
 								<span class="badge badge-warning">${continent.name }</span>
@@ -75,11 +83,11 @@
 								<c:if test="${islogin}">
 									<a
 										href="statistic?action=update&id=<c:out value='${continent.id}' />"><button
-											type="button" class="btn btn-primary btn-sm">Update</button></a>
+											type="button" class="btn btn-primary btn-sm"><fmt:message>update</fmt:message></button></a>
 								</c:if>
 								<a
 									href="<%=request.getContextPath()%>/charts?code=continent&name=${continent.name}"><button
-										type="button" class="btn btn-primary btn-sm">Chart</button></a>
+										type="button" class="btn btn-primary btn-sm"><fmt:message>chart</fmt:message></button></a>
 								<hr>
 
 							</c:forEach>
@@ -91,11 +99,11 @@
 				</div>
 				<div class="col-md-3 p-0">
 					<div class="card" style="height: 90vh; overflow: auto">
-						<div class="card-header">Country</div>
+						<div class="card-header"><fmt:message>country</fmt:message></div>
 						<div class="card-body">
-							<span class="badge badge-primary">Confirmed</span> <span
-								class="badge badge-success">Recovered</span> <span
-								class="badge badge-danger">Deaths</span>
+							<span class="badge badge-primary"><fmt:message>confirmed</fmt:message></span> <span
+								class="badge badge-success"><fmt:message>recovered</fmt:message></span> <span
+								class="badge badge-danger"><fmt:message>deaths</fmt:message></span>
 							<hr>
 							<c:forEach var="country" items="${country}">
 								<span class="badge badge-warning">${country.name }:</span>
@@ -109,11 +117,11 @@
 								<c:if test="${islogin}">
 									<a
 										href="statistic?action=update&id=<c:out value='${country.id}' />"><button
-											type="button" class="btn btn-primary btn-sm">Update</button></a>
+											type="button" class="btn btn-primary btn-sm"><fmt:message>update</fmt:message></button></a>
 								</c:if>
 								<a
 									href="<%=request.getContextPath()%>/charts?code=country&name=${country.name}"><button
-										type="button" class="btn btn-primary btn-sm">Chart</button></a>
+										type="button" class="btn btn-primary btn-sm"><fmt:message>chart</fmt:message></button></a>
 								<hr>
 
 							</c:forEach>
@@ -126,11 +134,11 @@
 				<div class="col-md-3 p-0">
 					<div class="card"
 						style="height: 90vh; overflow: auto; scrollbar-width: thin">
-						<div class="card-header">City</div>
+						<div class="card-header"><fmt:message>city</fmt:message></div>
 						<div class="card-body">
-							<span class="badge badge-primary">Confirmed</span> <span
-								class="badge badge-success">Recovered</span> <span
-								class="badge badge-danger">Deaths</span>
+							<span class="badge badge-primary"><fmt:message>confirmed</fmt:message></span> <span
+								class="badge badge-success"><fmt:message>recovered</fmt:message></span> <span
+								class="badge badge-danger"><fmt:message>deaths</fmt:message></span>
 							<hr>
 							<c:forEach var="city" items="${city}">
 								<span class="badge badge-warning">${city.name }</span>
@@ -144,11 +152,11 @@
 								<c:if test="${islogin}">
 									<a
 										href="statistic?action=update&id=<c:out value='${city.id}' />"><button
-											type="button" class="btn btn-primary btn-sm">Update</button></a>
+											type="button" class="btn btn-primary btn-sm"><fmt:message>update</fmt:message></button></a>
 								</c:if>
 								<a
 									href="<%=request.getContextPath()%>/charts?code=city&name=${city.name}"><button
-										type="button" class="btn btn-primary btn-sm">Chart</button></a>
+										type="button" class="btn btn-primary btn-sm"><fmt:message>chart</fmt:message></button></a>
 								<hr>
 
 							</c:forEach>
@@ -165,7 +173,7 @@
 
 		<div class="col-md-4 p-0" style="height: 90vh; overflow: auto">
 			<c:if test="${feed==null }">
-				<div class="card-body">Not found</div>
+				<div class="card-body"><fmt:message>not found</fmt:message></div>
 			</c:if>
 			<c:if test="${feed!=null }">
 				<c:forEach var="m" items="${feed }">
