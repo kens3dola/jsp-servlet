@@ -84,7 +84,7 @@ protected void doPost(HttpServletRequest req, HttpServletResponse res)
 		int recovered = Integer.parseInt(req.getParameter("recovered"));
 		int deaths = Integer.parseInt(req.getParameter("deaths"));
 		Date date = new Date(Calendar.getInstance().getTimeInMillis());
-		Statistic updateStatistic = new Statistic(code, name , confirmed, recovered,deaths, date);
+		Statistic updateStatistic = new Statistic(code, name , confirmed,deaths, recovered, date);
 		statisticDao.updateStatistic(updateStatistic);
 		res.sendRedirect("home");
 	}
@@ -97,7 +97,7 @@ protected void doPost(HttpServletRequest req, HttpServletResponse res)
 		int deaths = Integer.parseInt(req.getParameter("deaths"));
 		Date date = new Date(Calendar.getInstance().getTimeInMillis());
 		
-		Statistic insertStatistic = new Statistic(code, name , confirmed, recovered,deaths, date);
+		Statistic insertStatistic = new Statistic(code, name , confirmed,deaths, recovered, date);
 		statisticDao.insertStatistic(insertStatistic);
 		res.sendRedirect("home");
 	}
