@@ -32,7 +32,7 @@
 </style>
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<div class="row p-0" style="height: 100%; overflow: auto">
-		<div class="col-md-8 p-0">
+		<div class="col-md-10 p-0">
 			<div class="row"></div>
 			<div class="row m-0 p-10">
 
@@ -55,7 +55,7 @@
 										href="statistic?action=update&id=<c:out value='${world.id}' />"><button
 											type="button" class="btn btn-primary btn-sm"><fmt:message>update</fmt:message></button></a>
 								</c:if>
-								<a href="<%=request.getContextPath()%>/charts?code=world"><button
+								<a href="<%=request.getContextPath()%>/charts?code=world&name=world"><button
 										type="button" class="btn btn-primary btn-sm"><fmt:message>chart</fmt:message></button></a>
 								<hr>
 							</c:forEach>
@@ -171,7 +171,7 @@
 		</div>
 
 
-		<div class="col-md-4 p-0" style="height: 90vh; overflow: auto">
+		<div class="col-md-2 p-0" style="height: 90vh; overflow: auto">
 			<c:if test="${feed==null }">
 				<div class="card-body"><fmt:message>not found</fmt:message></div>
 			</c:if>

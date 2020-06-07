@@ -43,6 +43,7 @@
 					var recovered = [];
 					var deaths = [];
 					function parseData(value) {
+						console.log(value);
 						labels.push(value.date);
 						confirmed.push(value.confirmed);
 						recovered.push(value.recovered);
@@ -58,17 +59,17 @@
 							datasets : [ {
 								label : "Confirmed",
 								data : confirmed,
-								borderColor : "#3e95cd",
+								borderColor : "#044BFC",
 								fill : false
 							}, {
 								label : "Recovered",
 								data : recovered,
-								borderColor : "#8e5ea2",
+								borderColor : "#1DDF02",
 								fill : false
 							}, {
 								label : "Deaths",
 								data : deaths,
-								borderColor : "#3cba9f",
+								borderColor : "#FC3004",
 								fill : false
 							} ]
 						},

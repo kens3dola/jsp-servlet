@@ -22,9 +22,17 @@ public class StatisticDaoImpl implements StatisticDao {
 		// TODO Auto-generated constructor stub
 		this.con = JdbcConnection.getInstance().getConnection();
 	}
+	
+	public Connection getCon() {
+		return con;
+	}
+
+	public void setCon(Connection con) {
+		this.con = con;
+	}
 
 	@Override
-	public void insertStatistic(Statistic statistic) throws SQLException {
+	public int insertStatistic(Statistic statistic) throws SQLException {
 		try (PreparedStatement preparedStatement = con.prepareStatement(
 				"insert into statistic (code,name,confirmed,recovered,deaths,pub_date) values (?,?,?,?,?,?);")) {
 			preparedStatement.setString(1, statistic.getCode());
@@ -33,10 +41,11 @@ public class StatisticDaoImpl implements StatisticDao {
 			preparedStatement.setInt(4, statistic.getRecovered());
 			preparedStatement.setInt(5, statistic.getDeaths());
 			preparedStatement.setDate(6, statistic.getDate());
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			JdbcConnection.printSQLException(e);
 		}
+		return 0;
 
 	}
 
@@ -52,6 +61,7 @@ public class StatisticDaoImpl implements StatisticDao {
 		statement.setInt(3, statistic.getDeaths());
 		statement.setDate(6, statistic.getDate());
 		int rUpdated = statement.executeUpdate();
+		rowUpdated = rUpdated>0;
 		if (rUpdated == 0) {
 			try (PreparedStatement st = con.prepareStatement(
 					"insert into statistic (code,name,confirmed,recovered,deaths,pub_date) values (?,?,?,?,?,?);");) {
@@ -81,7 +91,7 @@ public class StatisticDaoImpl implements StatisticDao {
 				int confirmed = rs.getInt("confirmed");
 				int recovered = rs.getInt("recovered");
 				int deaths = rs.getInt("deaths");
-				continent.add(new Statistic(id, code, name, confirmed, recovered, deaths));
+				continent.add(new Statistic(id, code, name, confirmed,deaths ,recovered ));
 
 			}
 		} catch (SQLException e) {
@@ -105,7 +115,7 @@ public class StatisticDaoImpl implements StatisticDao {
 				int confirmed = rs.getInt("confirmed");
 				int recovered = rs.getInt("recovered");
 				int deaths = rs.getInt("deaths");
-				continent.add(new Statistic(id, code, name, confirmed, recovered, deaths));
+				continent.add(new Statistic(id, code, name, confirmed,deaths ,recovered ));
 			}
 		} catch (SQLException e) {
 			JdbcConnection.printSQLException(e);
@@ -125,7 +135,7 @@ public class StatisticDaoImpl implements StatisticDao {
 				int confirmed = rs.getInt("confirmed");
 				int recovered = rs.getInt("recovered");
 				int deaths = rs.getInt("deaths");
-				statistic = new Statistic(code, name, confirmed, recovered, deaths);
+				statistic = new Statistic(code, name, confirmed,deaths , recovered);
 				statistic.setId(id);
 			}
 		} catch (SQLException e) {
@@ -148,7 +158,7 @@ public class StatisticDaoImpl implements StatisticDao {
 				int confirmed = rs.getInt("confirmed");
 				int recovered = rs.getInt("recovered");
 				int deaths = rs.getInt("deaths");
-				country.add(new Statistic(id, code, name, confirmed, recovered, deaths));
+				country.add(new Statistic(id, code, name, confirmed,deaths , recovered));
 			}
 		} catch (SQLException e) {
 			JdbcConnection.printSQLException(e);
@@ -170,7 +180,7 @@ public class StatisticDaoImpl implements StatisticDao {
 				int confirmed = rs.getInt("confirmed");
 				int recovered = rs.getInt("recovered");
 				int deaths = rs.getInt("deaths");
-				city.add(new Statistic(id, code, name, confirmed, recovered, deaths));
+				city.add(new Statistic(id, code, name, confirmed,deaths , recovered));
 			}
 		} catch (SQLException e) {
 			JdbcConnection.printSQLException(e);
@@ -183,7 +193,7 @@ public class StatisticDaoImpl implements StatisticDao {
 		List<Statistic> country = new ArrayList<>();
 		try {
 			PreparedStatement preparedStatement = con
-					.prepareStatement("select * from statistic where code=? and name=?");
+					.prepareStatement("select * from statistic where code=? and name=? order by pub_date ASC limit 30");
 			preparedStatement.setString(1, "country");
 			preparedStatement.setString(2, s);
 			ResultSet rs = preparedStatement.executeQuery();
@@ -194,7 +204,7 @@ public class StatisticDaoImpl implements StatisticDao {
 				int confirmed = rs.getInt("confirmed");
 				int recovered = rs.getInt("recovered");
 				int deaths = rs.getInt("deaths");
-				country.add(new Statistic(id, code, name, confirmed, recovered, deaths, rs.getDate("pub_date")));
+				country.add(new Statistic(id, code, name, confirmed,deaths , recovered, rs.getDate("pub_date")));
 			}
 		} catch (SQLException e) {
 			JdbcConnection.printSQLException(e);
@@ -207,7 +217,7 @@ public class StatisticDaoImpl implements StatisticDao {
 		List<Statistic> city = new ArrayList<>();
 		try {
 			PreparedStatement preparedStatement = con
-					.prepareStatement("select * from statistic where code=? and name =?");
+					.prepareStatement("select * from statistic where code=? and name =? order by pub_date ASC limit 30");
 			preparedStatement.setString(1, "city");
 			preparedStatement.setString(2, s);
 			ResultSet rs = preparedStatement.executeQuery();
@@ -218,7 +228,7 @@ public class StatisticDaoImpl implements StatisticDao {
 				int confirmed = rs.getInt("confirmed");
 				int recovered = rs.getInt("recovered");
 				int deaths = rs.getInt("deaths");
-				city.add(new Statistic(id, code, name, confirmed, recovered, deaths, rs.getDate("pub_date")));
+				city.add(new Statistic(id, code, name, confirmed,deaths , recovered, rs.getDate("pub_date")));
 			}
 		} catch (SQLException e) {
 			JdbcConnection.printSQLException(e);
@@ -231,7 +241,7 @@ public class StatisticDaoImpl implements StatisticDao {
 		List<Statistic> continent = new ArrayList<>();
 		try {
 			PreparedStatement preparedStatement = con
-					.prepareStatement("select * from statistic where code=? and name=?");
+					.prepareStatement("select * from statistic where code=? and name=? order by pub_date ASC limit 30");
 			preparedStatement.setString(1, "continent");
 			preparedStatement.setString(2, s);
 			ResultSet rs = preparedStatement.executeQuery();
@@ -242,7 +252,7 @@ public class StatisticDaoImpl implements StatisticDao {
 				int confirmed = rs.getInt("confirmed");
 				int recovered = rs.getInt("recovered");
 				int deaths = rs.getInt("deaths");
-				continent.add(new Statistic(id, code, name, confirmed, recovered, deaths, rs.getDate("pub_date")));
+				continent.add(new Statistic(id, code, name, confirmed,deaths , recovered, rs.getDate("pub_date")));
 
 			}
 		} catch (SQLException e) {
@@ -255,7 +265,7 @@ public class StatisticDaoImpl implements StatisticDao {
 	public List<Statistic> listWorlds() {
 		List<Statistic> continent = new ArrayList<>();
 		try {
-			PreparedStatement preparedStatement = con.prepareStatement("select * from statistic where code=?");
+			PreparedStatement preparedStatement = con.prepareStatement("select * from statistic where code=? order by pub_date ASC limit 30");
 			preparedStatement.setString(1, "world");
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -266,7 +276,7 @@ public class StatisticDaoImpl implements StatisticDao {
 				int confirmed = rs.getInt("confirmed");
 				int recovered = rs.getInt("recovered");
 				int deaths = rs.getInt("deaths");
-				continent.add(new Statistic(id, code, name, confirmed, recovered, deaths, rs.getDate("pub_date")));
+				continent.add(new Statistic(id, code, name, confirmed,deaths , recovered, rs.getDate("pub_date")));
 
 			}
 		} catch (SQLException e) {
@@ -275,7 +285,7 @@ public class StatisticDaoImpl implements StatisticDao {
 		return continent;
 	}
 
-	public void updateManyCities(List<Statistic> list) throws SQLException {
+	public int[] updateManyCities(List<Statistic> list) throws SQLException {
 		Statistic stt = list.get(0);
 		if (checkUpdateOrInsert(stt)) {
 			System.out.println("1");
@@ -292,8 +302,7 @@ public class StatisticDaoImpl implements StatisticDao {
 				statement.setDate(6, s.getDate());
 				statement.addBatch();
 			}
-			System.out.println(statement);
-			statement.executeBatch();
+			return statement.executeBatch();
 		} else {
 			System.out.println("2");
 			PreparedStatement st = con.prepareStatement(
@@ -309,8 +318,7 @@ public class StatisticDaoImpl implements StatisticDao {
 				st.setDate(6, sta.getDate());
 				st.addBatch();
 			}
-			System.out.println(st);
-			st.executeBatch();
+			 return st.executeBatch();
 		}
 	}
 

@@ -23,15 +23,41 @@
 <body>
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<div class="container col-md-8 col-md-offset-3">
-		<form class="form p-5" action="<%=request.getContextPath()%>/import"
+		<h3>Import statistic from data API</h3>
+		<form class="form p-5" action="<%=request.getContextPath()%>/import?code=world"
 			method="post" enctype="multipart/form-data">
-			<div class="form-grpup">
-				<label>Data API (https://disease.sh/v2/jhucsse): </label><input
-					class="form-control" type="text" name="api">
+			<div class="form-group">
+				<label>World:</label><input
+					class="form-control" type="text" name="api" value="https://disease.sh/v2/historical/all?lastdays=30">
 			</div>
-			<br>
 			<button type="submit" class="btn btn-primary"><fmt:message>submit</fmt:message></button>
 		</form>
+		
+		<form class="form p-5" action="<%=request.getContextPath()%>/import?code=continent"
+			method="post" enctype="multipart/form-data">
+			<div class="form-group">
+				<label>Continents: </label><input
+					class="form-control" type="text" name="api" value="https://disease.sh/v2/continents">
+			</div>
+			<button type="submit" class="btn btn-primary"><fmt:message>submit</fmt:message></button>
+		</form>
+		<form class="form p-5" action="<%=request.getContextPath()%>/import?code=country"
+			method="post" enctype="multipart/form-data">
+			<div class="form-group">
+				<label>Countries:</label><input
+					class="form-control" type="text" name="api" value="https://disease.sh/v2/jhucsse">
+			</div>
+			<button type="submit" class="btn btn-primary"><fmt:message>submit</fmt:message></button>
+		</form>
+		<form class="form p-5" action="<%=request.getContextPath()%>/import?code=vietnam"
+			method="post" enctype="multipart/form-data">
+			<div class="form-group">
+				<label>VietNam:</label><input
+					class="form-control" type="text" name="api" value="https://disease.sh/v2/historical/Vietnam?lastdays=30">
+			</div>
+			<button type="submit" class="btn btn-primary"><fmt:message>submit</fmt:message></button>
+		</form>
+		
 	</div>
 	<br>
 	<hr>

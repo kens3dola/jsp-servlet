@@ -67,15 +67,15 @@
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                                    <form action="#" method="POST">
+                                    <form action="#" style="display:flex; align-item:center'" method="POST">
                                         <select name="ddLanguage">
                                             <option value="vi_VN">Tiếng Việt</option>
                                             <option value="en_US">English</option>
                                         </select>
-                                        <input type="submit" value="<fmt:message>submit</fmt:message>"/>
+                                        <input type="submit" class="" value="<fmt:message>submit</fmt:message>"/>
                                     </form>					
                                     <li class="nav-item active"><a class="nav-link"
-						href="<%=request.getContextPath()%>/home">Home <span
+						href="<%=request.getContextPath()%>/home"><fmt:message>home</fmt:message> <span
 							class="sr-only">(current)</span></a></li>
 					<c:if test="${islogin}">
 						<li class="nav-item"><a class="nav-link"

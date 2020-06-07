@@ -18,6 +18,14 @@ public class LoginDaoImpl implements LoginDao {
 		con = JdbcConnection.getInstance().getConnection();
 	}
 
+	public Connection getCon() {
+		return con;
+	}
+
+	public void setCon(Connection con) {
+		this.con = con;
+	}
+
 	public boolean validate(Account account) throws ClassNotFoundException {
 		boolean status = false;
 

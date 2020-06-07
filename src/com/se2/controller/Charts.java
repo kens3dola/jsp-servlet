@@ -28,8 +28,7 @@ public class Charts extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("application/json;charset=UTF-8");
-		String action = (request.getParameter("code") == null) ? "" : request.getParameter("code");
+		System.out.println(request.toString());
 		request.getRequestDispatcher("views/world.jsp").forward(request, response);
 //		switch (action) {
 //		case "world":
